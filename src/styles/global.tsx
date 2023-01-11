@@ -9,5 +9,10 @@ export const GlobalStyles = createGlobalStyle`
 
   body, button, input, label, textarea {
     font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: ${({ theme }) => theme.palette.gray[600]};
   }
 `
