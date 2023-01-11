@@ -17,7 +17,10 @@ export const TransactionListContainer = () => {
   return (
     <Container>
       <SearchForTransactionsContainer>
-        <SearchForTransactionsInput placeholder="Busque por transações" />
+        <SearchForTransactionsInput
+          type="text"
+          placeholder="Busque por transações"
+        />
 
         <SearchForTransactionsButton>
           <MagnifyingGlass size={20} weight="bold" /> Buscar
