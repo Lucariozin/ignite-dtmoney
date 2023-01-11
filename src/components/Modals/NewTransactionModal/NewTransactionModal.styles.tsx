@@ -7,6 +7,14 @@ export const Overlay = styled(Dialog.Overlay)`
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.8);
+
+  &[data-state='open'] {
+    animation: fadeIn 300ms ease-out;
+  }
+
+  &[data-state='closed'] {
+    animation: fadeOut 300ms ease-in;
+  }
 `
 
 export const Content = styled(Dialog.Content)`
@@ -21,6 +29,14 @@ export const Content = styled(Dialog.Content)`
 
   border-radius: 6px;
   background-color: ${({ theme }) => theme.palette.gray[600]};
+
+  &[data-state='open'] {
+    animation: fadeIn 200ms ease-out;
+  }
+
+  &[data-state='closed'] {
+    animation: fadeOut 200ms ease-in;
+  }
 `
 
 export const Title = styled(Dialog.Title)`

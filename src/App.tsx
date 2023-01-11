@@ -1,12 +1,5 @@
-import { Header } from '@components/Header'
-import { TransactionListContainer } from '@components/TransactionListContainer'
+import { Transactions } from '@pages/Transactions'
 
 export const App = () => {
-  return (
-    <>
-      <Header />
-
-      <TransactionListContainer />
-    </>
-  )
+  return <Transactions />
 }
