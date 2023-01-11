@@ -1,3 +1,5 @@
+import { Summary } from './components/Summary'
+
 import {
   Container,
   Wrapper,
@@ -22,7 +24,9 @@ export const Header = () => {
           <NewTransactionButton>Nova transação</NewTransactionButton>
         </NewTransactionContainer>
 
-        <SummaryContainer></SummaryContainer>
+        <SummaryContainer>
+          <Summary />
+        </SummaryContainer>
       </Wrapper>
     </Container>
   )

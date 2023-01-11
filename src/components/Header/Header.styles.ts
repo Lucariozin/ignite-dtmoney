@@ -56,4 +56,6 @@ export const NewTransactionButton = styled.button`
   }
 `
 
-export const SummaryContainer = styled.div``
+export const SummaryContainer = styled.div`
+  margin-top: 2.5rem;
+`
