@@ -1,3 +1,7 @@
+import * as Dialog from '@radix-ui/react-dialog'
+
+import { NewTransactionModal } from '@components/Modals/NewTransactionModal'
+
 import { Summary } from './components/Summary'
 
 import {
@@ -21,7 +25,13 @@ export const Header = () => {
             <LogoText>DT Money</LogoText>
           </Logo>
 
-          <NewTransactionButton>Nova transação</NewTransactionButton>
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <NewTransactionButton>Nova transação</NewTransactionButton>
+            </Dialog.Trigger>
+
+            <NewTransactionModal />
+          </Dialog.Root>
         </NewTransactionContainer>
 
         <SummaryContainer>

@@ -1,8 +1,12 @@
 import { MagnifyingGlass } from 'phosphor-react'
+
+import { Pagination } from '@components/Pagination'
+
 import { TransactionItem } from './components/TransactionItem'
 
 import {
   Container,
+  PaginationContainer,
   SearchForTransactionsButton,
   SearchForTransactionsContainer,
   SearchForTransactionsInput,
@@ -92,6 +96,10 @@ export const TransactionListContainer = () => {
           createdAt={new Date()}
         />
       </TransactionList>
+
+      <PaginationContainer>
+        <Pagination />
+      </PaginationContainer>
     </Container>
   )
 }

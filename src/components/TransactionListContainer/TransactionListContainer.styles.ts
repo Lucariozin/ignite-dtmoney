@@ -70,3 +70,9 @@ export const TransactionList = styled.div`
   gap: 8px;
   margin-top: 1.5rem;
 `
+
+export const PaginationContainer = styled.footer`
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 0;
+`

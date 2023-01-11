@@ -48,11 +48,11 @@ export const TransactionItem = ({
 
   return (
     <Container>
-      <Description>Desenvolvimento de site</Description>
+      <Description>{description}</Description>
 
       <Value type={type}>{formattedValue}</Value>
 
-      <Category>Venda</Category>
+      <Category>{category}</Category>
 
       <CreationDate>13/04/2022</CreationDate>
     </Container>
