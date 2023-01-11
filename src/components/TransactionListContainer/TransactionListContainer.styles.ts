@@ -64,4 +64,9 @@ export const SearchForTransactionsButton = styled.button`
   }
 `
 
-export const TransactionList = styled.div``
+export const TransactionList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1.5rem;
+`

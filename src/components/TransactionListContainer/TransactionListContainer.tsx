@@ -1,4 +1,5 @@
 import { MagnifyingGlass } from 'phosphor-react'
+import { TransactionItem } from './components/TransactionItem'
 
 import {
   Container,
@@ -19,7 +20,78 @@ export const TransactionListContainer = () => {
         </SearchForTransactionsButton>
       </SearchForTransactionsContainer>
 
-      <TransactionList></TransactionList>
+      <TransactionList>
+        <TransactionItem
+          type="income"
+          description="Desenvolvimento de site"
+          value={12000}
+          category="Venda"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="outcome"
+          description="Hamburguer"
+          value={59}
+          category="Alimentação"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="income"
+          description="Desenvolvimento de site"
+          value={12000}
+          category="Venda"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="outcome"
+          description="Hamburguer"
+          value={59}
+          category="Alimentação"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="income"
+          description="Desenvolvimento de site"
+          value={12000}
+          category="Venda"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="outcome"
+          description="Hamburguer"
+          value={59}
+          category="Alimentação"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="income"
+          description="Desenvolvimento de site"
+          value={12000}
+          category="Venda"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="outcome"
+          description="Hamburguer"
+          value={59}
+          category="Alimentação"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="income"
+          description="Desenvolvimento de site"
+          value={12000}
+          category="Venda"
+          createdAt={new Date()}
+        />
+        <TransactionItem
+          type="outcome"
+          description="Hamburguer"
+          value={59}
+          category="Alimentação"
+          createdAt={new Date()}
+        />
+      </TransactionList>
     </Container>
   )
 }
