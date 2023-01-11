@@ -54,6 +54,11 @@ export const NewTransactionButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.palette.green[400]};
   }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    outline-offset: 3px;
+  }
 `
 
 export const SummaryContainer = styled.div`
