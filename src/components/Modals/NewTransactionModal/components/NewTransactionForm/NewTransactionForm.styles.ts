@@ -1,6 +1,6 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.form`
   margin-top: 2rem;
@@ -54,10 +54,50 @@ export const TypeButton = styled(ToggleGroup.Item)`
   border: 0;
   border-radius: 6px;
 
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
   cursor: pointer;
 
-  &:hover {
+  & > svg {
+    ${({ theme, value }) => {
+      const type = value as 'income' | 'outcome'
+
+      const colorsOfTypes = {
+        income: theme.palette.green[400],
+        outcome: theme.palette.red[300],
+      }
+
+      const typeColor = colorsOfTypes[type]
+
+      return css`
+        transition: color 0.2s;
+        color: ${typeColor};
+      `
+    }}
+  }
+
+  &[data-state='on'] {
+    ${({ theme, value }) => {
+      const type = value as 'income' | 'outcome'
+
+      const colorsOfTypes = {
+        income: theme.palette.green[600],
+        outcome: theme.palette.red[500],
+      }
+
+      const typeColor = colorsOfTypes[type]
+
+      return css`
+        & > svg {
+          color: ${theme.palette.white};
+        }
+
+        color: ${theme.palette.white};
+        background-color: ${typeColor};
+      `
+    }}
+  }
+
+  &:not([data-state='on']):hover {
     background-color: ${({ theme }) => theme.palette.gray[500]};
   }
 
