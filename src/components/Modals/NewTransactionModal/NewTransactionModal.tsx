@@ -2,12 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import { NewTransactionForm } from './components/NewTransactionForm'
 
-import {
-  CloseButton,
-  Content,
-  Overlay,
-  Title,
-} from './NewTransactionModal.styles'
+import { CloseButton, Content, Overlay, Title } from './NewTransactionModal.styles'
 
 export const NewTransactionModal = () => {
   return (

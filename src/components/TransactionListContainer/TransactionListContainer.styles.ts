@@ -23,7 +23,7 @@ export const SearchForTransactionsInput = styled.input`
   background-color: ${({ theme }) => theme.palette.gray[700]};
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
   }
 
   &::placeholder {
@@ -59,7 +59,11 @@ export const SearchForTransactionsButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    color: ${({ theme }) => theme.palette.white};
+    background-color: ${({ theme }) => theme.palette.green[500]};
+    border-color: ${({ theme }) => theme.palette.green[500]};
+
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
   }
 `

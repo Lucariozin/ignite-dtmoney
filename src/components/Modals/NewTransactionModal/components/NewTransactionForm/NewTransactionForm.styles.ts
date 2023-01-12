@@ -12,7 +12,11 @@ export const InputsContainer = styled.div`
   gap: 1rem;
 `
 
-export const Input = styled.input`
+interface InputProps {
+  isError: boolean
+}
+
+export const Input = styled.input<InputProps>`
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
@@ -22,8 +26,16 @@ export const Input = styled.input`
   border-radius: 6px;
   background-color: ${({ theme }) => theme.palette.gray[700]};
 
+  ${({ theme, isError }) => {
+    if (!isError) return css``
+
+    return css`
+      outline: 1px solid ${theme.palette.red[300]};
+    `
+  }}
+
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
   }
 
   &::placeholder {
@@ -37,7 +49,11 @@ export const TypeButtonsContainer = styled(ToggleGroup.Root)`
   margin: 1.5rem 0 2.5rem 0;
 `
 
-export const TypeButton = styled(ToggleGroup.Item)`
+interface TypeButtonProps {
+  selected: boolean
+}
+
+export const TypeButton = styled(ToggleGroup.Item)<TypeButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,34 +91,40 @@ export const TypeButton = styled(ToggleGroup.Item)`
     }}
   }
 
-  &[data-state='on'] {
-    ${({ theme, value }) => {
-      const type = value as 'income' | 'outcome'
+  ${({ theme, value, selected }) => {
+    if (!selected) return css``
 
-      const colorsOfTypes = {
-        income: theme.palette.green[600],
-        outcome: theme.palette.red[500],
+    const type = value as 'income' | 'outcome'
+
+    const colorsOfTypes = {
+      income: theme.palette.green[600],
+      outcome: theme.palette.red[500],
+    }
+
+    const typeColor = colorsOfTypes[type]
+
+    return css`
+      & > svg {
+        color: ${theme.palette.white};
       }
 
-      const typeColor = colorsOfTypes[type]
+      color: ${theme.palette.white};
+      background-color: ${typeColor};
+    `
+  }}
 
-      return css`
-        & > svg {
-          color: ${theme.palette.white};
-        }
+  ${({ theme, selected }) => {
+    if (selected) return css``
 
-        color: ${theme.palette.white};
-        background-color: ${typeColor};
-      `
-    }}
-  }
-
-  &:not([data-state='on']):hover {
-    background-color: ${({ theme }) => theme.palette.gray[500]};
-  }
+    return css`
+      &:hover {
+        background-color: ${theme.palette.gray[500]};
+      }
+    `
+  }}
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
   }
 `
@@ -127,7 +149,7 @@ export const RegisterButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
   }
 `

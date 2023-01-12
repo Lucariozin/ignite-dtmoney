@@ -56,7 +56,7 @@ export const NewTransactionButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.palette.green[400]};
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
   }
 `
