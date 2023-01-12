@@ -1,0 +1,36 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "type": "income",
+      "description": "Desenvolvimento de site",
+      "value": 12000,
+      "category": "venda",
+      "createdAt": "10-01-2023 14:00:00"
+    },
+    {
+      "id": 2,
+      "type": "outcome",
+      "description": "Hamburguer",
+      "value": 59,
+      "category": "Alimentação",
+      "createdAt": "10-01-2023 15:00:00"
+    },
+    {
+      "id": 3,
+      "type": "outcome",
+      "description": "Aluguel de apartamento",
+      "value": 1200,
+      "category": "Casa",
+      "createdAt": "10-01-2023 16:00:00"
+    },
+    {
+      "type": "outcome",
+      "description": "Teste",
+      "value": 59,
+      "category": "Teste",
+      "createdAt": "2023-01-12T22:35:40.282Z",
+      "id": 4
+    }
+  ]
+}

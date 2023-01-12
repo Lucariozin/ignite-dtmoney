@@ -1,10 +1,4 @@
-import {
-  Category,
-  Container,
-  CreationDate,
-  Description,
-  Value,
-} from './TransactionItem.styles'
+import { Category, Container, CreationDate, Description, Value } from './TransactionItem.styles'
 
 export type TransactionType = 'income' | 'outcome'
 
@@ -21,10 +15,7 @@ interface FormatTransactionValueParams {
   type: TransactionType
 }
 
-const formatTransactionValue = ({
-  value,
-  type,
-}: FormatTransactionValueParams) => {
+const formatTransactionValue = ({ value, type }: FormatTransactionValueParams) => {
   let formattedValue = value.toLocaleString('pt-br', {
     style: 'currency',
     currency: 'BRL',
@@ -45,6 +36,7 @@ export const TransactionItem = ({
   createdAt = new Date(),
 }: TransactionItemProps) => {
   const formattedValue = formatTransactionValue({ value, type })
+  const formattedCreationDate = createdAt.toLocaleDateString()
 
   return (
     <Container>
@@ -54,7 +46,7 @@ export const TransactionItem = ({
 
       <Category>{category}</Category>
 
-      <CreationDate>13/04/2022</CreationDate>
+      <CreationDate>{formattedCreationDate}</CreationDate>
     </Container>
   )
 }
