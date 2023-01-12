@@ -36,12 +36,7 @@ export const NewTransactionForm = () => {
   return (
     <Container onSubmit={handleSubmit(onNewTransactionFormSubmit)}>
       <InputsContainer>
-        <Input
-          placeholder="Descrição"
-          type="text"
-          {...register('description')}
-        />
-
+        <Input placeholder="Descrição" type="text" {...register('description')} />
         <Input placeholder="Preço" type="number" {...register('price')} />
         <Input placeholder="Categoria" type="text" {...register('category')} />
       </InputsContainer>
@@ -50,11 +45,7 @@ export const NewTransactionForm = () => {
         name="type"
         control={control}
         render={() => (
-          <TypeButtonsContainer
-            type="single"
-            defaultValue="income"
-            onValueChange={onTransactionTypeValueChange}
-          >
+          <TypeButtonsContainer type="single" defaultValue="income" onValueChange={onTransactionTypeValueChange}>
             <TypeButton type="button" value="income" tabIndex={0}>
               <ArrowCircleUp size={24} /> Entrada
             </TypeButton>
