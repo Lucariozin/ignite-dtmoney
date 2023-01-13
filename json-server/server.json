@@ -39,6 +39,14 @@
       "category": "Teste",
       "createdAt": "2023-01-13T14:21:23.051Z",
       "id": 5
+    },
+    {
+      "type": "income",
+      "description": "Teste 3",
+      "value": 1000,
+      "category": "Teste",
+      "createdAt": "2023-01-13T15:08:13.154Z",
+      "id": 6
     }
   ]
 }

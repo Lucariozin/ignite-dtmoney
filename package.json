@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "json-server ./json-server/server.json -w -p 3001 -m ./json-server/middleware.cjs -d 500",
+    "dev:server": "json-server ./json-server/server.json -r ./json-server/routes.json -w -p 3001 -m ./json-server/middlewares.cjs -d 500",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --fix --ext .ts,.tsx,.d.ts"
