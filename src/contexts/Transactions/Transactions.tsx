@@ -1,26 +1,10 @@
-import { createContext, ReactNode, useEffect, useReducer, useContext } from 'react'
+import { createContext, useEffect, useReducer, useContext } from 'react'
+
 import { fetchTransactionsSummary } from '@services/api'
 
-export type Summary = {
-  incomes: number
-  outcomes: number
-  total: number
-}
+import { reducer } from './Transactions.reducer'
 
-export type Transaction = {
-  id: number
-  description: string
-  value: number
-  category: string
-  type: 'income' | 'outcome'
-  createdAt: Date
-}
-
-interface TransactionsContextState {
-  summary: Summary
-  filterSummary?: Summary | null
-  transactions: Transaction[]
-}
+import { TransactionsContextState, TransactionsProviderProps } from './Transactions.types'
 
 const initialState: TransactionsContextState = {
   summary: {
@@ -31,27 +15,7 @@ const initialState: TransactionsContextState = {
   transactions: [],
 }
 
-interface TransactionsProviderProps {
-  children: ReactNode
-}
-
 const TransactionsContext = createContext<TransactionsContextState>(initialState)
-
-type TransactionsActions = {
-  type: string
-  payload?: any
-}
-
-const reducer = (state: TransactionsContextState, action: TransactionsActions) => {
-  const { type, payload } = action
-
-  switch (type) {
-    case 'SET_SUMMARY':
-      return { ...state, summary: payload.summary }
-    default:
-      return state
-  }
-}
 
 export const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)

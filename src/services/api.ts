@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { Summary, Transaction } from '@contexts/Transactions/Transactions'
+import { Summary, Transaction } from '@contexts/Transactions/Transactions.types'
 
 type ResponseObj<T = any> = {
   status?: number

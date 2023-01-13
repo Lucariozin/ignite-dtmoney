@@ -1,7 +1,7 @@
-import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from 'phosphor-react'
-import { formatMoney } from '@utils/formatMoney'
-
 import { useTheme } from 'styled-components'
+import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from 'phosphor-react'
+
+import { formatMoney } from '@utils/formatMoney'
 
 import { Container, TypeHeader, TypeText, Value } from './SummaryCard.styles'
 
