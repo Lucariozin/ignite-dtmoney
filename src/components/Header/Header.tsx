@@ -1,8 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { NewTransactionModal } from '@components/Modals/NewTransactionModal'
-
-import { Summary } from './components/Summary'
+import { Summary } from '@components/Summary'
 
 import {
   Container,
