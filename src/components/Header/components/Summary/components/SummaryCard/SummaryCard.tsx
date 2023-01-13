@@ -1,4 +1,5 @@
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from 'phosphor-react'
+import { formatMoney } from '@utils/formatMoney'
 
 import { useTheme } from 'styled-components'
 
@@ -9,10 +10,7 @@ interface SummaryCardProps {
   value: number
 }
 
-export const SummaryCard = ({
-  type = 'income',
-  value = 0,
-}: SummaryCardProps) => {
+export const SummaryCard = ({ type = 'income', value = 0 }: SummaryCardProps) => {
   const { palette } = useTheme()
 
   const dataOfTypes = {
@@ -32,6 +30,8 @@ export const SummaryCard = ({
 
   const typeData = dataOfTypes[type]
 
+  const formattedValue = formatMoney({ value })
+
   return (
     <Container type={type}>
       <TypeHeader>
@@ -40,7 +40,7 @@ export const SummaryCard = ({
         {typeData.icon}
       </TypeHeader>
 
-      <Value>R$ {value},</Value>
+      <Value>{formattedValue}</Value>
     </Container>
   )
 }

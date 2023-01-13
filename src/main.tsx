@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+import { TransactionsProvider } from '@contexts/Transactions'
+
 import { ThemeProvider } from 'styled-components'
 import { theme } from './styles/theme'
 
@@ -10,10 +12,12 @@ import { App } from './App'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
+    <TransactionsProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
 
-      <App />
-    </ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </TransactionsProvider>
   </React.StrictMode>,
 )

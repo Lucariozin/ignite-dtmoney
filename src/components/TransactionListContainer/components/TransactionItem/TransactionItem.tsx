@@ -1,3 +1,5 @@
+import { formatMoney } from '@utils/formatMoney'
+
 import { Category, Container, CreationDate, Description, Value } from './TransactionItem.styles'
 
 export type TransactionType = 'income' | 'outcome'
@@ -16,10 +18,7 @@ interface FormatTransactionValueParams {
 }
 
 const formatTransactionValue = ({ value, type }: FormatTransactionValueParams) => {
-  let formattedValue = value.toLocaleString('pt-br', {
-    style: 'currency',
-    currency: 'BRL',
-  })
+  let formattedValue = formatMoney({ value })
 
   if (type === 'outcome') {
     formattedValue = '- ' + formattedValue

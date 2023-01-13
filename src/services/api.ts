@@ -1,13 +1,6 @@
 import axios from 'axios'
 
-type Transaction = {
-  id: number
-  description: string
-  value: number
-  category: string
-  type: 'income' | 'outcome'
-  createdAt: Date
-}
+import { Summary, Transaction } from '@contexts/Transactions/Transactions'
 
 type ResponseObj<T = any> = {
   status?: number
@@ -27,6 +20,18 @@ export const fetchTransactions = async () => {
     const mappedData = data.map((transaction) => ({ ...transaction, createdAt: new Date(transaction.createdAt) }))
 
     response = { status, data: mappedData }
+  } catch {}
+
+  return response
+}
+
+export const fetchTransactionsSummary = async () => {
+  let response: ResponseObj<Summary> = {}
+
+  try {
+    const { status, data } = await api.get<Summary>('/transactions/summary')
+
+    response = { status, data }
   } catch {}
 
   return response
