@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-
+import { useEffect, useCallback } from 'react'
 import { MagnifyingGlass } from 'phosphor-react'
 
 import { fetchTransactions } from '@services/api'
 
-import { Pagination } from '@components/Pagination'
+import { useTransactions } from '@contexts/Transactions'
 
+import { Pagination } from '@components/Pagination'
 import { TransactionItem } from './components/TransactionItem'
 
 import {
@@ -17,29 +17,20 @@ import {
   TransactionList,
 } from './TransactionListContainer.styles'
 
-type Transaction = {
-  id: number
-  description: string
-  value: number
-  category: string
-  type: 'income' | 'outcome'
-  createdAt: Date
-}
-
 export const TransactionListContainer = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const { transactions, setTransactions } = useTransactions()
 
-  const getTransactions = async () => {
+  const getTransactions = useCallback(async () => {
     const { data } = await fetchTransactions()
 
     if (!data) return
 
-    setTransactions(data)
-  }
+    setTransactions({ transactions: data })
+  }, [setTransactions])
 
   useEffect(() => {
     getTransactions()
-  }, [])
+  }, [getTransactions])
 
   return (
     <Container>

@@ -1,10 +1,17 @@
 import axios from 'axios'
 
-import { Summary, Transaction } from '@contexts/Transactions/Transactions.types'
+import { Summary, Transaction, TransactionType } from '@contexts/Transactions/Transactions.types'
 
 type ResponseObj<T = any> = {
   status?: number
   data?: T
+}
+
+interface CreateNewTransactionParams {
+  type: TransactionType
+  description: string
+  value: number
+  category: string
 }
 
 export const api = axios.create({
@@ -32,6 +39,25 @@ export const fetchTransactionsSummary = async () => {
     const { status, data } = await api.get<Summary>('/transactions/summary')
 
     response = { status, data }
+  } catch {}
+
+  return response
+}
+
+export const createNewTransaction = async ({ type, description, value, category }: CreateNewTransactionParams) => {
+  let response: ResponseObj<Transaction> = {}
+
+  try {
+    const { status, data } = await api.post<Transaction>('/transactions', {
+      type,
+      description,
+      value,
+      category,
+    })
+
+    const mappedData: Transaction = { ...data, createdAt: new Date(data.createdAt) }
+
+    response = { status, data: mappedData }
   } catch {}
 
   return response

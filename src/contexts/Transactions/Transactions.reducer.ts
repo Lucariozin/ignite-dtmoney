@@ -8,6 +8,22 @@ const actionsObject: ActionsObjectType = {
 
     return { ...state, summary }
   },
+  SET_TRANSACTIONS: ({ state, payload }) => {
+    if (!payload?.transactions) return state
+
+    const { transactions } = payload
+
+    return { ...state, transactions }
+  },
+  CREATE_TRANSACTION: ({ state, payload }) => {
+    if (!payload?.transaction) return state
+
+    const { transaction } = payload
+
+    const newTransactions = [transaction, ...state.transactions]
+
+    return { ...state, transactions: newTransactions }
+  },
 }
 
 export const reducer = (state: TransactionsContextState, action: TransactionsActions) => {

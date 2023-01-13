@@ -1,8 +1,11 @@
 import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-
 import { ArrowCircleDown, ArrowCircleUp } from 'phosphor-react'
+
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { zodValidationSchema } from './zodValidationSchema'
+
+import { useTransactions } from '@contexts/Transactions'
 
 import {
   Container,
@@ -13,11 +16,17 @@ import {
   TypeButtonsContainer,
 } from './NewTransactionForm.styles'
 
-import { zodValidationSchema } from './zodValidationSchema'
+interface NewTransactionFormInputs extends zod.infer<typeof zodValidationSchema> {
+  type: 'income' | 'outcome'
+}
 
-type NewTransactionFormInputs = zod.infer<typeof zodValidationSchema>
+interface NewTransactionFormProps {
+  closeModal: () => void
+}
 
-export const NewTransactionForm = () => {
+export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
+  const { createTransaction } = useTransactions()
+
   const { register, control, watch, setValue, handleSubmit, formState } = useForm<NewTransactionFormInputs>({
     defaultValues: { type: 'income' },
     resolver: zodResolver(zodValidationSchema),
@@ -27,14 +36,21 @@ export const NewTransactionForm = () => {
 
   const fieldErrors = formState.errors
 
-  const onTransactionTypeValueChange = (value: 'income' | 'outcome') => {
+  const onTransactionTypeValueChange = (value: NewTransactionFormInputs['type']) => {
     if (!value) return
 
     setValue('type', value)
   }
 
-  const onNewTransactionFormSubmit = (data: NewTransactionFormInputs) => {
-    console.log(data)
+  const onNewTransactionFormSubmit = async (data: NewTransactionFormInputs) => {
+    const newTransaction = {
+      ...data,
+      value: data.price,
+    }
+
+    await createTransaction(newTransaction)
+
+    closeModal()
   }
 
   return (

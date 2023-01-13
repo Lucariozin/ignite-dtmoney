@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { NewTransactionModal } from '@components/Modals/NewTransactionModal'
@@ -15,6 +17,11 @@ import {
 } from './Header.styles'
 
 export const Header = () => {
+  const [newTransactionModalIsOpen, setNewTransactionModalIsOpen] = useState(false)
+
+  const openNewTransactionModal = () => setNewTransactionModalIsOpen(true)
+  const closeNewTransactionModal = () => setNewTransactionModalIsOpen(false)
+
   return (
     <Container>
       <Wrapper>
@@ -24,12 +31,12 @@ export const Header = () => {
             <LogoText>DT Money</LogoText>
           </Logo>
 
-          <Dialog.Root>
+          <Dialog.Root open={newTransactionModalIsOpen}>
             <Dialog.Trigger asChild>
-              <NewTransactionButton>Nova transação</NewTransactionButton>
+              <NewTransactionButton onClick={openNewTransactionModal}>Nova transação</NewTransactionButton>
             </Dialog.Trigger>
 
-            <NewTransactionModal />
+            <NewTransactionModal closeModal={closeNewTransactionModal} />
           </Dialog.Root>
         </NewTransactionContainer>
 

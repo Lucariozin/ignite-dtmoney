@@ -1,10 +1,15 @@
-import { createContext, useEffect, useReducer, useContext } from 'react'
+import { createContext, useEffect, useReducer, useContext, useCallback } from 'react'
 
-import { fetchTransactionsSummary } from '@services/api'
+import { createNewTransaction, fetchTransactionsSummary } from '@services/api'
 
 import { reducer } from './Transactions.reducer'
 
-import { TransactionsContextState, TransactionsProviderProps } from './Transactions.types'
+import {
+  CreateTransactionParams,
+  SetTransactionsParams,
+  TransactionsContextState,
+  TransactionsProviderProps,
+} from './Transactions.types'
 
 const initialState: TransactionsContextState = {
   summary: {
@@ -13,12 +18,26 @@ const initialState: TransactionsContextState = {
     total: 0,
   },
   transactions: [],
+  createTransaction: async () => {},
+  setTransactions: () => {},
 }
 
 const TransactionsContext = createContext<TransactionsContextState>(initialState)
 
 export const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+
+  const setTransactions = useCallback(({ transactions }: SetTransactionsParams) => {
+    dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions } })
+  }, [])
+
+  const createTransaction = useCallback(async ({ type, description, value, category }: CreateTransactionParams) => {
+    const { data } = await createNewTransaction({ type, description, value, category })
+
+    if (!data) return
+
+    dispatch({ type: 'CREATE_TRANSACTION', payload: { transaction: data } })
+  }, [])
 
   const getSummary = async () => {
     const { data } = await fetchTransactionsSummary()
@@ -32,7 +51,13 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     getSummary()
   }, [])
 
-  return <TransactionsContext.Provider value={state}>{children}</TransactionsContext.Provider>
+  const value: TransactionsContextState = {
+    ...state,
+    createTransaction,
+    setTransactions,
+  }
+
+  return <TransactionsContext.Provider value={value}>{children}</TransactionsContext.Provider>
 }
 
 export const useTransactions = () => useContext(TransactionsContext)
