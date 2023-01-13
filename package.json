@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "json-server --watch ./json-server/fake-json-server-db.json -p 3001 --middlewares ./json-server/fake-json-server-middleware.cjs",
+    "dev:server": "json-server ./json-server/server.json -w -p 3001 -m ./json-server/middleware.cjs -d 500",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --fix --ext .ts,.tsx,.d.ts"

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { MagnifyingGlass } from 'phosphor-react'
 
-import { fetchTransactions } from 'src/services/api'
+import { fetchTransactions } from '@services/api'
 
 import { Pagination } from '@components/Pagination'
 
