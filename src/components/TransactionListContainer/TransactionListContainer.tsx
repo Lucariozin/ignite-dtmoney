@@ -1,27 +1,28 @@
 import { useEffect, useCallback } from 'react'
-import { MagnifyingGlass } from 'phosphor-react'
 
 import { fetchTransactions } from '@services/api'
 
 import { useTransactions } from '@contexts/Transactions'
 
-import { Pagination } from '@components/Pagination'
+import { SearchForTransactionsForm } from './components/SearchForTransactionsForm'
 import { TransactionItem } from './components/TransactionItem'
+import { Pagination } from '@components/Pagination'
 
-import {
-  Container,
-  PaginationContainer,
-  SearchForTransactionsButton,
-  SearchForTransactionsContainer,
-  SearchForTransactionsInput,
-  TransactionList,
-} from './TransactionListContainer.styles'
+import { Container, PaginationContainer, TransactionList } from './TransactionListContainer.styles'
 
 export const TransactionListContainer = () => {
   const { transactions, setTransactions } = useTransactions()
 
+  const handleFilterTransactions = async ({ query }: { query: string }) => {
+    const { data } = await fetchTransactions({ query })
+
+    if (!data) return
+
+    setTransactions({ transactions: data })
+  }
+
   const getTransactions = useCallback(async () => {
-    const { data } = await fetchTransactions()
+    const { data } = await fetchTransactions({})
 
     if (!data) return
 
@@ -34,13 +35,7 @@ export const TransactionListContainer = () => {
 
   return (
     <Container>
-      <SearchForTransactionsContainer>
-        <SearchForTransactionsInput type="text" placeholder="Busque por transações" />
-
-        <SearchForTransactionsButton>
-          <MagnifyingGlass size={20} weight="bold" /> Buscar
-        </SearchForTransactionsButton>
-      </SearchForTransactionsContainer>
+      <SearchForTransactionsForm handleFilterTransactions={handleFilterTransactions} />
 
       <TransactionList>
         {transactions.map(({ id, type, description, value, category, createdAt }) => (

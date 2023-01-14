@@ -37,6 +37,10 @@ export const Content = styled(Dialog.Content)`
   &[data-state='closed'] {
     animation: fadeOut 200ms ease-in;
   }
+
+  &:focus-visible {
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
+  }
 `
 
 export const Title = styled(Dialog.Title)`

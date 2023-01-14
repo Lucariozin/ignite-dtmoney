@@ -14,15 +14,21 @@ interface CreateNewTransactionParams {
   category: string
 }
 
+interface FetchTransactionsParams {
+  query?: string
+}
+
 export const api = axios.create({
   baseURL: 'http://localhost:3001',
 })
 
-export const fetchTransactions = async () => {
+export const fetchTransactions = async ({ query }: FetchTransactionsParams) => {
+  const url = query ? `/transactions?q=${query}` : '/transactions'
+
   let response: ResponseObj<Transaction[]> = {}
 
   try {
-    const { status, data } = await api.get<Transaction[]>('/transactions')
+    const { status, data } = await api.get<Transaction[]>(url)
 
     const mappedData = data.map((transaction) => ({ ...transaction, createdAt: new Date(transaction.createdAt) }))
 
