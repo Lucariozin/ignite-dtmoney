@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer, useContext, useCallback } from 'react'
 
-import { createNewTransaction, fetchTransactionsSummary } from '@services/api'
+import { createNewTransaction, fetchTransactions, fetchTransactionsSummary } from '@services/api'
 
 import { reducer } from './Transactions.reducer'
 
@@ -20,6 +20,7 @@ const initialState: TransactionsContextState = {
   transactions: [],
   createTransaction: async () => {},
   setTransactions: () => {},
+  filterTransactions: async () => {},
 }
 
 const TransactionsContext = createContext<TransactionsContextState>(initialState)
@@ -31,6 +32,21 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions } })
   }, [])
 
+  const filterTransactions = async ({ query }: { query: string }) => {
+    const [transactionsResponse, summaryResponse] = await Promise.all([
+      fetchTransactions({ query }),
+      fetchTransactionsSummary({ query }),
+    ])
+
+    const transactions = transactionsResponse.data
+    const summary = summaryResponse.data
+
+    if (!transactions || !summary) return
+
+    dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions } })
+    dispatch({ type: 'SET_SUMMARY', payload: { summary } })
+  }
+
   const createTransaction = useCallback(async ({ type, description, value, category }: CreateTransactionParams) => {
     const { data } = await createNewTransaction({ type, description, value, category })
 
@@ -40,7 +56,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
   }, [])
 
   const getSummary = async () => {
-    const { data } = await fetchTransactionsSummary()
+    const { data } = await fetchTransactionsSummary({})
 
     if (!data) return
 
@@ -55,6 +71,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     ...state,
     createTransaction,
     setTransactions,
+    filterTransactions,
   }
 
   return <TransactionsContext.Provider value={value}>{children}</TransactionsContext.Provider>

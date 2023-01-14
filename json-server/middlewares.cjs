@@ -8,8 +8,12 @@ const middlewares = {
 
     next()
   },
-  '/summary': async ({ res }) => {
-    const response = await fetch('http://localhost:3001/transactions')
+  '/summary': async ({ req, res }) => {
+    const query = req.query.q
+
+    const url = query ? `http://localhost:3001/transactions?q=${query}` : 'http://localhost:3001/transactions'
+
+    const response = await fetch(url)
     const transactions = await response.json()
 
     const summary = transactions.reduce(
@@ -38,7 +42,7 @@ const middlewares = {
 }
 
 module.exports = (req, res, next) => {
-  const { url } = req
+  const url = req.url.split('?')[0]
 
   const middlewareFunction = middlewares[url]
 

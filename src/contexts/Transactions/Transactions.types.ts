@@ -28,12 +28,17 @@ export interface CreateTransactionParams {
   category: string
 }
 
+export interface FilterTransactionsParams {
+  query: string
+}
+
 export interface TransactionsContextState {
   summary: Summary
   filterSummary?: Summary | null
   transactions: Transaction[]
   createTransaction: (params: CreateTransactionParams) => Promise<void>
   setTransactions: (params: SetTransactionsParams) => void
+  filterTransactions: (params: FilterTransactionsParams) => Promise<void>
 }
 
 export interface TransactionsProviderProps {

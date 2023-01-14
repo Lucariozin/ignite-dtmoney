@@ -14,15 +14,11 @@ interface CreateNewTransactionParams {
   category: string
 }
 
-interface FetchTransactionsParams {
-  query?: string
-}
-
 export const api = axios.create({
   baseURL: 'http://localhost:3001',
 })
 
-export const fetchTransactions = async ({ query }: FetchTransactionsParams) => {
+export const fetchTransactions = async ({ query }: { query?: string }) => {
   const url = query ? `/transactions?q=${query}` : '/transactions'
 
   let response: ResponseObj<Transaction[]> = {}
@@ -38,11 +34,13 @@ export const fetchTransactions = async ({ query }: FetchTransactionsParams) => {
   return response
 }
 
-export const fetchTransactionsSummary = async () => {
+export const fetchTransactionsSummary = async ({ query }: { query?: string }) => {
+  const url = query ? `/transactions/summary?q=${query}` : '/transactions/summary'
+
   let response: ResponseObj<Summary> = {}
 
   try {
-    const { status, data } = await api.get<Summary>('/transactions/summary')
+    const { status, data } = await api.get<Summary>(url)
 
     response = { status, data }
   } catch {}

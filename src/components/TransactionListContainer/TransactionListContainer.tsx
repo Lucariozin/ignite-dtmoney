@@ -13,14 +13,6 @@ import { Container, PaginationContainer, TransactionList } from './TransactionLi
 export const TransactionListContainer = () => {
   const { transactions, setTransactions } = useTransactions()
 
-  const handleFilterTransactions = async ({ query }: { query: string }) => {
-    const { data } = await fetchTransactions({ query })
-
-    if (!data) return
-
-    setTransactions({ transactions: data })
-  }
-
   const getTransactions = useCallback(async () => {
     const { data } = await fetchTransactions({})
 
@@ -35,7 +27,7 @@ export const TransactionListContainer = () => {
 
   return (
     <Container>
-      <SearchForTransactionsForm handleFilterTransactions={handleFilterTransactions} />
+      <SearchForTransactionsForm />
 
       <TransactionList>
         {transactions.map(({ id, type, description, value, category, createdAt }) => (

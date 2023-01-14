@@ -1,3 +1,4 @@
 {
-  "/transactions/summary": "/summary"
+  "/transactions/summary": "/summary",
+  "/transactions/summary\\?q=:q": "/summary?q=:q"
 }

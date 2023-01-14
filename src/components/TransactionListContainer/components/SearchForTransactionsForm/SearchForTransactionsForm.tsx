@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { MagnifyingGlass } from 'phosphor-react'
 
+import { useTransactions } from '@contexts/Transactions'
+
 import { Container, SearchForTransactionsButton, SearchForTransactionsInput } from './SearchForTransactionsForm.styles'
 
 const zodValidationSchema = zod.object({
@@ -13,11 +15,9 @@ const zodValidationSchema = zod.object({
 
 type SearchForTransactionsInputs = zod.infer<typeof zodValidationSchema>
 
-interface SearchForTransactionsFormProps {
-  handleFilterTransactions: (params: { query: string }) => Promise<void>
-}
+export const SearchForTransactionsForm = () => {
+  const { filterTransactions } = useTransactions()
 
-export const SearchForTransactionsForm = ({ handleFilterTransactions }: SearchForTransactionsFormProps) => {
   const { register, handleSubmit, formState } = useForm<SearchForTransactionsInputs>({
     resolver: zodResolver(zodValidationSchema),
     reValidateMode: 'onSubmit',
@@ -26,7 +26,7 @@ export const SearchForTransactionsForm = ({ handleFilterTransactions }: SearchFo
   const onSearchForTransactionsFormSubmit = (data: SearchForTransactionsInputs) => {
     const { query } = data
 
-    handleFilterTransactions({ query })
+    filterTransactions({ query })
   }
 
   return (
