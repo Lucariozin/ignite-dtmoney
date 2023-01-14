@@ -95,6 +95,22 @@
       "category": "Teste",
       "createdAt": "2023-01-13T19:45:59.213Z",
       "id": 12
+    },
+    {
+      "type": "outcome",
+      "description": "Testando nova transação 5",
+      "value": 2,
+      "category": "Teste",
+      "createdAt": "2023-01-14T19:08:46.951Z",
+      "id": 13
+    },
+    {
+      "type": "income",
+      "description": "Testando nova transação 6",
+      "value": 23,
+      "category": "Teste",
+      "createdAt": "2023-01-14T19:12:23.717Z",
+      "id": 14
     }
   ]
 }

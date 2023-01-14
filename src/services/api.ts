@@ -19,7 +19,9 @@ export const api = axios.create({
 })
 
 export const fetchTransactions = async ({ query }: { query?: string }) => {
-  const url = query ? `/transactions?q=${query}` : '/transactions'
+  const url = query
+    ? `/transactions?_sort=createdAt&_order=desc&q=${query}`
+    : '/transactions?_sort=createdAt&_order=desc'
 
   let response: ResponseObj<Transaction[]> = {}
 

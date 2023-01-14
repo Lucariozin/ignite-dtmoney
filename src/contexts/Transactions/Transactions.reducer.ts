@@ -1,4 +1,5 @@
-import { ActionsObjectType, TransactionsActions, TransactionsContextState } from './Transactions.types'
+import { TransactionsContextState } from './Transactions.types'
+import { ActionsObjectType, TransactionActions } from './Transactions.actions'
 
 const actionsObject: ActionsObjectType = {
   SET_SUMMARY: ({ state, payload }) => {
@@ -26,7 +27,7 @@ const actionsObject: ActionsObjectType = {
   },
 }
 
-export const reducer = (state: TransactionsContextState, action: TransactionsActions) => {
+export const reducer = (state: TransactionsContextState, action: TransactionActions) => {
   const { type, payload } = action
 
   const actionFunction = actionsObject[type]

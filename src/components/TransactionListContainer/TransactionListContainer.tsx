@@ -1,6 +1,4 @@
-import { useEffect, useCallback } from 'react'
-
-import { fetchTransactions } from '@services/api'
+import { useEffect } from 'react'
 
 import { useTransactions } from '@contexts/Transactions'
 
@@ -11,15 +9,7 @@ import { Pagination } from '@components/Pagination'
 import { Container, PaginationContainer, TransactionList } from './TransactionListContainer.styles'
 
 export const TransactionListContainer = () => {
-  const { transactions, setTransactions } = useTransactions()
-
-  const getTransactions = useCallback(async () => {
-    const { data } = await fetchTransactions({})
-
-    if (!data) return
-
-    setTransactions({ transactions: data })
-  }, [setTransactions])
+  const { transactions, getTransactions } = useTransactions()
 
   useEffect(() => {
     getTransactions()

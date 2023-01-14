@@ -4,12 +4,7 @@ import { createNewTransaction, fetchTransactions, fetchTransactionsSummary } fro
 
 import { reducer } from './Transactions.reducer'
 
-import {
-  CreateTransactionParams,
-  SetTransactionsParams,
-  TransactionsContextState,
-  TransactionsProviderProps,
-} from './Transactions.types'
+import { CreateTransactionParams, TransactionsContextState, TransactionsProviderProps } from './Transactions.types'
 
 const initialState: TransactionsContextState = {
   summary: {
@@ -19,7 +14,7 @@ const initialState: TransactionsContextState = {
   },
   transactions: [],
   createTransaction: async () => {},
-  setTransactions: () => {},
+  getTransactions: async () => {},
   filterTransactions: async () => {},
 }
 
@@ -28,9 +23,21 @@ const TransactionsContext = createContext<TransactionsContextState>(initialState
 export const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const setTransactions = useCallback(({ transactions }: SetTransactionsParams) => {
-    dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions } })
+  const getTransactions = useCallback(async () => {
+    const { data } = await fetchTransactions({})
+
+    if (!data) return
+
+    dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions: data } })
   }, [])
+
+  const getSummary = async () => {
+    const { data } = await fetchTransactionsSummary({})
+
+    if (!data) return
+
+    dispatch({ type: 'SET_SUMMARY', payload: { summary: data } })
+  }
 
   const filterTransactions = async ({ query }: { query: string }) => {
     const [transactionsResponse, summaryResponse] = await Promise.all([
@@ -55,14 +62,6 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     dispatch({ type: 'CREATE_TRANSACTION', payload: { transaction: data } })
   }, [])
 
-  const getSummary = async () => {
-    const { data } = await fetchTransactionsSummary({})
-
-    if (!data) return
-
-    dispatch({ type: 'SET_SUMMARY', payload: { summary: data } })
-  }
-
   useEffect(() => {
     getSummary()
   }, [])
@@ -70,7 +69,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
   const value: TransactionsContextState = {
     ...state,
     createTransaction,
-    setTransactions,
+    getTransactions,
     filterTransactions,
   }
 
