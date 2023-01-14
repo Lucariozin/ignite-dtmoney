@@ -1,11 +1,10 @@
+import { createContext, useCallback, useContext, useEffect, useReducer } from 'react'
+
+import { reducer } from './Pagination.reducer'
+
 import { useTransactions } from '@contexts/Transactions'
 
-import { createContext, ReactNode, useCallback, useContext, useEffect, useReducer } from 'react'
-
-interface PaginationContextState {
-  currentPage: number
-  lastPage: number
-}
+import { PaginationContextState, PaginationProviderProps } from './Pagination.types'
 
 const initialState: PaginationContextState = {
   currentPage: 1,
@@ -14,11 +13,7 @@ const initialState: PaginationContextState = {
 
 const PaginationContext = createContext<PaginationContextState>(initialState)
 
-const reducer = (state: PaginationContextState, action: any) => {
-  return initialState
-}
-
-export const PaginationProvider = ({ children }: { children: ReactNode }) => {
+export const PaginationProvider = ({ children }: PaginationProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const { getTransactions } = useTransactions()
@@ -28,7 +23,7 @@ export const PaginationProvider = ({ children }: { children: ReactNode }) => {
 
     if (!paginationData) return
 
-    console.log(paginationData)
+    dispatch({ type: 'SET_STATE', payload: { state: paginationData } })
   }, [getTransactions])
 
   useEffect(() => {
