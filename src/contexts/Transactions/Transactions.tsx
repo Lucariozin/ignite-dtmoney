@@ -4,7 +4,12 @@ import { createNewTransaction, fetchTransactions, fetchTransactionsSummary } fro
 
 import { reducer } from './Transactions.reducer'
 
-import { CreateTransactionParams, TransactionsContextState, TransactionsProviderProps } from './Transactions.types'
+import {
+  CreateTransactionParams,
+  GetTransactionsParams,
+  TransactionsContextState,
+  TransactionsProviderProps,
+} from './Transactions.types'
 
 const initialState: TransactionsContextState = {
   summary: {
@@ -14,7 +19,7 @@ const initialState: TransactionsContextState = {
   },
   transactions: [],
   createTransaction: async () => {},
-  getTransactions: async () => {},
+  getTransactions: async () => ({ paginationData: null }),
   filterTransactions: async () => {},
 }
 
@@ -23,12 +28,16 @@ const TransactionsContext = createContext<TransactionsContextState>(initialState
 export const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const getTransactions = useCallback(async () => {
-    const { data } = await fetchTransactions({})
+  const getTransactions = useCallback(async ({ page, limit }: GetTransactionsParams) => {
+    const { data } = await fetchTransactions({ page, limit })
 
-    if (!data) return
+    if (!data) return { paginationData: null }
 
-    dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions: data } })
+    const { transactions, paginationData } = data
+
+    dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions } })
+
+    return { paginationData }
   }, [])
 
   const getSummary = async () => {
@@ -45,7 +54,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
       fetchTransactionsSummary({ query }),
     ])
 
-    const transactions = transactionsResponse.data
+    const transactions = transactionsResponse.data?.transactions
     const summary = summaryResponse.data
 
     if (!transactions || !summary) return

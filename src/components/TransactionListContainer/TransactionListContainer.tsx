@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
-
 import { useTransactions } from '@contexts/Transactions'
+import { PaginationProvider } from '@contexts/Pagination'
 
 import { SearchForTransactionsForm } from './components/SearchForTransactionsForm'
 import { TransactionItem } from './components/TransactionItem'
@@ -9,11 +8,7 @@ import { Pagination } from '@components/Pagination'
 import { Container, PaginationContainer, TransactionList } from './TransactionListContainer.styles'
 
 export const TransactionListContainer = () => {
-  const { transactions, getTransactions } = useTransactions()
-
-  useEffect(() => {
-    getTransactions()
-  }, [getTransactions])
+  const { transactions } = useTransactions()
 
   return (
     <Container>
@@ -32,9 +27,11 @@ export const TransactionListContainer = () => {
         ))}
       </TransactionList>
 
-      <PaginationContainer>
-        <Pagination />
-      </PaginationContainer>
+      <PaginationProvider>
+        <PaginationContainer>
+          <Pagination />
+        </PaginationContainer>
+      </PaginationProvider>
     </Container>
   )
 }

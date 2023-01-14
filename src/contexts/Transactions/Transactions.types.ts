@@ -28,11 +28,21 @@ export interface FilterTransactionsParams {
   query: string
 }
 
+export interface GetTransactionsParams {
+  page?: number
+  limit?: number
+}
+
+type PaginationData = {
+  currentPage: number
+  lastPage: number
+}
+
 export interface TransactionsContextState {
   summary: Summary
   transactions: Transaction[]
   createTransaction: (params: CreateTransactionParams) => Promise<void>
-  getTransactions: () => Promise<void>
+  getTransactions: (params: GetTransactionsParams) => Promise<{ paginationData: PaginationData | null }>
   filterTransactions: (params: FilterTransactionsParams) => Promise<void>
 }
 

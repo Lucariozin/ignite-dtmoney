@@ -1,6 +1,10 @@
+import { usePagination } from '@contexts/Pagination'
+
 import { Container, NextPageButton, PageButton, PageButtonsContainer, PrevPageButton } from './Pagination.styles'
 
 export const Pagination = () => {
+  const { currentPage, lastPage } = usePagination()
+
   return (
     <Container>
       <PrevPageButton />
