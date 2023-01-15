@@ -59,6 +59,7 @@ export const PageButton = styled.button<PageButtonProps>`
 
   transition: filter 0.2s;
   cursor: pointer;
+  user-select: none;
 
   ${({ theme, isHighlighted }) => {
     if (isHighlighted) {
@@ -77,4 +78,13 @@ export const PageButton = styled.button<PageButtonProps>`
       }
     `
   }}
+`
+
+export const Separator = styled.span`
+  position: relative;
+  top: 6px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.palette.gray[300]};
+  user-select: none;
 `

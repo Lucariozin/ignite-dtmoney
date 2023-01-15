@@ -9,6 +9,9 @@ import { PaginationContextState, PaginationProviderProps } from './Pagination.ty
 const initialState: PaginationContextState = {
   currentPage: 1,
   lastPage: 1,
+  goToPage: async () => {},
+  goToThePreviousPage: async () => {},
+  goToTheNextPage: async () => {},
 }
 
 const PaginationContext = createContext<PaginationContextState>(initialState)
@@ -18,19 +21,33 @@ export const PaginationProvider = ({ children }: PaginationProviderProps) => {
 
   const { getTransactions } = useTransactions()
 
-  const getPaginationData = useCallback(async () => {
-    const { paginationData } = await getTransactions({ page: 1, limit: 5 })
+  const goToPage = useCallback(
+    async (page: number = 1) => {
+      const { paginationData } = await getTransactions({ page, limit: 5 })
 
-    if (!paginationData) return
+      if (!paginationData) return
 
-    dispatch({ type: 'SET_STATE', payload: { state: paginationData } })
-  }, [getTransactions])
+      dispatch({ type: 'SET_STATE', payload: { state: { ...paginationData } } })
+    },
+    [getTransactions],
+  )
+
+  const goToThePreviousPage = async () => await goToPage(state.currentPage - 1)
+
+  const goToTheNextPage = async () => await goToPage(state.currentPage + 1)
 
   useEffect(() => {
-    getPaginationData()
-  }, [getPaginationData])
+    goToPage(1)
+  }, [goToPage])
 
-  return <PaginationContext.Provider value={state}>{children}</PaginationContext.Provider>
+  const value: PaginationContextState = {
+    ...state,
+    goToPage,
+    goToThePreviousPage,
+    goToTheNextPage,
+  }
+
+  return <PaginationContext.Provider value={value}>{children}</PaginationContext.Provider>
 }
 
 export const usePagination = () => useContext(PaginationContext)

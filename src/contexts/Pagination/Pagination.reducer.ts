@@ -5,7 +5,7 @@ const actionsObject: ActionsObjectType = {
   SET_STATE: ({ state, payload }) => {
     if (!payload?.state) return state
 
-    const newState = payload.state
+    const newState = { ...state, ...payload.state }
 
     return newState
   },

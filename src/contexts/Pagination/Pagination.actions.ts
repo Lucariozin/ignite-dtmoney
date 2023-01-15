@@ -3,7 +3,7 @@ import { PaginationContextState } from './Pagination.types'
 export type ActionTypes = 'SET_STATE'
 
 type Payload = {
-  state?: PaginationContextState
+  state?: Partial<PaginationContextState>
 }
 
 export type PaginationActions = {
