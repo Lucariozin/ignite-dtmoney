@@ -43,23 +43,23 @@ const getAfterPages = ({ pages, currentPage, visiblePages }: GetAfterPagesParams
 const getBeforePages = ({ pages, currentPage, lastPage, visiblePages }: GetBeforePagesParams) => {
   const halfOfVisiblePages = Math.floor(visiblePages / 2)
 
+  if (currentPage === lastPage) {
+    const beforePages = pages.slice(lastPage - visiblePages < 0 ? 0 : lastPage - visiblePages, currentPage - 1)
+    return beforePages
+  }
+
   if (currentPage <= halfOfVisiblePages) {
     const beforePages = pages.slice(0, currentPage - 1)
     return beforePages
   }
 
-  if (currentPage + halfOfVisiblePages > lastPage && currentPage !== lastPage) {
-    if (currentPage + halfOfVisiblePages - 1 === lastPage) {
-      const beforePages = pages.slice(currentPage - 1 + halfOfVisiblePages - visiblePages, currentPage - 1)
-      return beforePages
-    }
-
-    const beforePages = pages.slice(visiblePages - (currentPage + 1), currentPage - 1)
+  if (currentPage + halfOfVisiblePages - 1 === lastPage) {
+    const beforePages = pages.slice(currentPage + halfOfVisiblePages - visiblePages - 1, currentPage - 1)
     return beforePages
   }
 
-  if (currentPage === lastPage) {
-    const beforePages = pages.slice(lastPage - visiblePages, currentPage - 1)
+  if (currentPage + halfOfVisiblePages > lastPage) {
+    const beforePages = pages.slice(visiblePages - (currentPage + 1), currentPage - 1)
     return beforePages
   }
 

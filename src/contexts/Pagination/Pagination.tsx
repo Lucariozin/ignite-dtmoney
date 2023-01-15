@@ -23,7 +23,7 @@ export const PaginationProvider = ({ children }: PaginationProviderProps) => {
 
   const goToPage = useCallback(
     async (page: number = 1) => {
-      const { paginationData } = await getTransactions({ page, limit: 1 })
+      const { paginationData } = await getTransactions({ page, limit: 10 })
 
       if (!paginationData) return
 
