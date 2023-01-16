@@ -2,6 +2,13 @@ import { TransactionsContextState } from './Transactions.types'
 import { ActionsObjectType, TransactionActions } from './Transactions.actions'
 
 const actionsObject: ActionsObjectType = {
+  SET_IS_LOADING: ({ state, payload }) => {
+    if (!payload?.isLoading) return state
+
+    const { isLoading } = payload
+
+    return { ...state, isLoading }
+  },
   SET_SUMMARY: ({ state, payload }) => {
     if (!payload?.summary) return state
 

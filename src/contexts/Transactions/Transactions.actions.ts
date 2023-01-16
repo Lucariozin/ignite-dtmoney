@@ -1,8 +1,9 @@
 import { Summary, Transaction, TransactionsContextState } from './Transactions.types'
 
-export type ActionTypes = 'SET_SUMMARY' | 'CREATE_TRANSACTION' | 'SET_TRANSACTIONS'
+export type ActionTypes = 'SET_IS_LOADING' | 'SET_SUMMARY' | 'CREATE_TRANSACTION' | 'SET_TRANSACTIONS'
 
 export type Payload = {
+  isLoading?: boolean
   summary?: Summary
   transaction?: Transaction
   transactions?: Transaction[]

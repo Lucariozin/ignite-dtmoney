@@ -39,6 +39,7 @@ type PaginationData = {
 }
 
 export interface TransactionsContextState {
+  isLoading: boolean
   summary: Summary
   transactions: Transaction[]
   filterTransactions: (params: FilterTransactionsParams) => Promise<void>

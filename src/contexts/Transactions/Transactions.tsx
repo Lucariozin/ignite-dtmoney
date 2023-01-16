@@ -12,6 +12,7 @@ import {
 } from './Transactions.types'
 
 const initialState: TransactionsContextState = {
+  isLoading: true,
   summary: {
     incomes: 0,
     outcomes: 0,
