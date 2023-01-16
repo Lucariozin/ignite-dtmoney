@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import * as zod from 'zod'
@@ -6,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { MagnifyingGlass } from 'phosphor-react'
 
 import { useTransactions } from '@contexts/Transactions'
+import { usePagination } from '@contexts/Pagination'
 
 import { Container, SearchForTransactionsButton, SearchForTransactionsInput } from './SearchForTransactionsForm.styles'
 
@@ -16,12 +18,15 @@ const zodValidationSchema = zod.object({
 type SearchForTransactionsInputs = zod.infer<typeof zodValidationSchema>
 
 export const SearchForTransactionsForm = () => {
-  const { filterTransactions } = useTransactions()
+  const { filterTransactions, updateSummary } = useTransactions()
+  const { currentPage, goToPage } = usePagination()
 
-  const { register, handleSubmit, formState } = useForm<SearchForTransactionsInputs>({
+  const { register, handleSubmit, watch, formState } = useForm<SearchForTransactionsInputs>({
     resolver: zodResolver(zodValidationSchema),
     reValidateMode: 'onSubmit',
   })
+
+  const query = watch('query')
 
   const onSearchForTransactionsFormSubmit = (data: SearchForTransactionsInputs) => {
     const { query } = data
@@ -29,13 +34,20 @@ export const SearchForTransactionsForm = () => {
     filterTransactions({ query })
   }
 
+  useEffect(() => {
+    if (query) return
+
+    goToPage(currentPage)
+    updateSummary()
+  }, [query, currentPage, goToPage, updateSummary])
+
   return (
     <Container onSubmit={handleSubmit(onSearchForTransactionsFormSubmit)}>
       <SearchForTransactionsInput
         type="text"
         placeholder="Busque por transações"
-        {...register('query')}
         isError={!!formState.errors.query}
+        {...register('query')}
       />
 
       <SearchForTransactionsButton type="submit">

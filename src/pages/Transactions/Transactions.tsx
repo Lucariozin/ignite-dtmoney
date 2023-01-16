@@ -1,3 +1,5 @@
+import { PaginationProvider } from '@contexts/Pagination'
+
 import { Header } from '@components/Header'
 import { TransactionListContainer } from '@components/TransactionListContainer'
 
@@ -8,7 +10,9 @@ export const Transactions = () => {
     <Container>
       <Header />
 
-      <TransactionListContainer />
+      <PaginationProvider>
+        <TransactionListContainer />
+      </PaginationProvider>
     </Container>
   )
 }

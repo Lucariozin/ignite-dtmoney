@@ -26,17 +26,17 @@ const PaginationContext = createContext<PaginationContextState>(initialState)
 export const PaginationProvider = ({ children }: PaginationProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const { getTransactions } = useTransactions()
+  const { updateTransactions } = useTransactions()
 
   const goToPage = useCallback(
     async (page: number = 1) => {
-      const { paginationData } = await getTransactions({ page, limit: 10 })
+      const { paginationData } = await updateTransactions({ page, limit: 10 })
 
       if (!paginationData) return
 
       dispatch({ type: 'SET_STATE', payload: { state: { ...paginationData } } })
     },
-    [getTransactions],
+    [updateTransactions],
   )
 
   const goToThePreviousPage = useCallback(async () => {

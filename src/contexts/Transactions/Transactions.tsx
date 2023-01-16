@@ -6,7 +6,7 @@ import { reducer } from './Transactions.reducer'
 
 import {
   CreateTransactionParams,
-  GetTransactionsParams,
+  UpdateTransactionsParams,
   TransactionsContextState,
   TransactionsProviderProps,
 } from './Transactions.types'
@@ -19,8 +19,9 @@ const initialState: TransactionsContextState = {
   },
   transactions: [],
   createTransaction: async () => {},
-  getTransactions: async () => ({ paginationData: null }),
+  updateTransactions: async () => ({ paginationData: null }),
   filterTransactions: async () => {},
+  updateSummary: async () => {},
 }
 
 const TransactionsContext = createContext<TransactionsContextState>(initialState)
@@ -28,7 +29,7 @@ const TransactionsContext = createContext<TransactionsContextState>(initialState
 export const TransactionsProvider = ({ children }: TransactionsProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const getTransactions = useCallback(async ({ page, limit }: GetTransactionsParams) => {
+  const updateTransactions = useCallback(async ({ page, limit }: UpdateTransactionsParams) => {
     const { data } = await fetchTransactions({ page, limit })
 
     if (!data) return { paginationData: null }
@@ -40,13 +41,13 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     return { paginationData }
   }, [])
 
-  const getSummary = async () => {
+  const updateSummary = useCallback(async () => {
     const { data } = await fetchTransactionsSummary({})
 
     if (!data) return
 
     dispatch({ type: 'SET_SUMMARY', payload: { summary: data } })
-  }
+  }, [])
 
   const filterTransactions = async ({ query }: { query: string }) => {
     const [transactionsResponse, summaryResponse] = await Promise.all([
@@ -72,14 +73,15 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
   }, [])
 
   useEffect(() => {
-    getSummary()
-  }, [])
+    updateSummary()
+  }, [updateSummary])
 
   const value: TransactionsContextState = {
     ...state,
-    createTransaction,
-    getTransactions,
+    updateTransactions,
+    updateSummary,
     filterTransactions,
+    createTransaction,
   }
 
   return <TransactionsContext.Provider value={value}>{children}</TransactionsContext.Provider>

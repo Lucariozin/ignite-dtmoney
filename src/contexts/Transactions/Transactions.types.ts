@@ -28,7 +28,7 @@ export interface FilterTransactionsParams {
   query: string
 }
 
-export interface GetTransactionsParams {
+export interface UpdateTransactionsParams {
   page?: number
   limit?: number
 }
@@ -41,9 +41,10 @@ type PaginationData = {
 export interface TransactionsContextState {
   summary: Summary
   transactions: Transaction[]
-  createTransaction: (params: CreateTransactionParams) => Promise<void>
-  getTransactions: (params: GetTransactionsParams) => Promise<{ paginationData: PaginationData | null }>
   filterTransactions: (params: FilterTransactionsParams) => Promise<void>
+  updateTransactions: (params: UpdateTransactionsParams) => Promise<{ paginationData: PaginationData | null }>
+  updateSummary: () => Promise<void>
+  createTransaction: (params: CreateTransactionParams) => Promise<void>
 }
 
 export interface TransactionsProviderProps {

@@ -1,5 +1,4 @@
 import { useTransactions } from '@contexts/Transactions'
-import { PaginationProvider } from '@contexts/Pagination'
 
 import { SearchForTransactionsForm } from './components/SearchForTransactionsForm'
 import { TransactionItem } from './components/TransactionItem'
@@ -27,11 +26,9 @@ export const TransactionListContainer = () => {
         ))}
       </TransactionList>
 
-      <PaginationProvider>
-        <PaginationContainer>
-          <Pagination />
-        </PaginationContainer>
-      </PaginationProvider>
+      <PaginationContainer>
+        <Pagination />
+      </PaginationContainer>
     </Container>
   )
 }
