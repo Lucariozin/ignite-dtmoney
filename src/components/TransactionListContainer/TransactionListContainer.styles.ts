@@ -7,13 +7,6 @@ export const Container = styled.main`
   padding: 0 1.5rem;
 `
 
-export const TransactionList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 1.5rem;
-`
-
 export const PaginationContainer = styled.footer`
   display: flex;
   justify-content: center;
