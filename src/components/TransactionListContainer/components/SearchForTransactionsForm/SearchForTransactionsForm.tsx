@@ -18,7 +18,7 @@ const zodValidationSchema = zod.object({
 type SearchForTransactionsInputs = zod.infer<typeof zodValidationSchema>
 
 export const SearchForTransactionsForm = () => {
-  const { filterTransactions, updateSummary } = useTransactions()
+  const { filterTransactions } = useTransactions()
   const { currentPage, goToPage } = usePagination()
 
   const { register, handleSubmit, watch, formState } = useForm<SearchForTransactionsInputs>({
@@ -38,8 +38,7 @@ export const SearchForTransactionsForm = () => {
     if (query) return
 
     goToPage(currentPage)
-    updateSummary()
-  }, [query, currentPage, goToPage, updateSummary])
+  }, [query, currentPage, goToPage])
 
   return (
     <Container onSubmit={handleSubmit(onSearchForTransactionsFormSubmit)}>

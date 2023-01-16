@@ -33,7 +33,7 @@ export const SummaryCard = ({ type = 'income', value = 0 }: SummaryCardProps) =>
   const formattedValue = formatMoney({ value })
 
   return (
-    <Container type={type}>
+    <Container type={type} value={value}>
       <TypeHeader>
         <TypeText>{typeData.text}</TypeText>
 
