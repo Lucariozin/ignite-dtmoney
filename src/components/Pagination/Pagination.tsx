@@ -9,71 +9,8 @@ import {
   Separator,
 } from './Pagination.styles'
 
-interface GetPagesParams {
-  currentPage: number
-  lastPage: number
-  visiblePages: number
-}
-
-interface GetNextPagesParams {
-  pages: number[]
-  currentPage: number
-  visiblePages: number
-}
-
-interface GetPreviousPagesParams {
-  pages: number[]
-  currentPage: number
-  lastPage: number
-  visiblePages: number
-}
-
-const getNextPages = ({ pages, currentPage, visiblePages }: GetNextPagesParams) => {
-  const pagesOnEachSide = Math.floor(visiblePages / 2)
-
-  if (currentPage <= pagesOnEachSide) {
-    const nextPages = pages.slice(currentPage, visiblePages)
-    return nextPages
-  }
-
-  const nextPages = pages.slice(currentPage, currentPage + pagesOnEachSide)
-  return nextPages
-}
-
-const getPreviousPages = ({ pages, currentPage, lastPage, visiblePages }: GetPreviousPagesParams) => {
-  const pagesOnEachSide = Math.floor(visiblePages / 2)
-
-  if (currentPage <= pagesOnEachSide) {
-    const previousPages = pages.slice(0, currentPage - 1)
-    return previousPages
-  }
-
-  if (currentPage + pagesOnEachSide >= lastPage) {
-    const start = lastPage - visiblePages <= 0 ? 0 : lastPage - visiblePages
-    const previousPages = pages.slice(start, currentPage - 1)
-
-    return previousPages
-  }
-
-  const previousPages = pages.slice(currentPage - pagesOnEachSide - 1, currentPage - 1)
-  return previousPages
-}
-
-const getPages = ({ currentPage, visiblePages, lastPage }: GetPagesParams) => {
-  const pages: number[] = []
-
-  for (let c = 1; c <= lastPage; c++) {
-    pages.push(c)
-  }
-
-  const previousPages = getPreviousPages({ pages, currentPage, lastPage, visiblePages })
-  const nextPages = getNextPages({ pages, currentPage, visiblePages })
-
-  return { pages, previousPages, nextPages }
-}
-
 export const Pagination = () => {
-  const { currentPage, lastPage, goToPage, goToThePreviousPage, goToTheNextPage } = usePagination()
+  const { currentPage, lastPage, getPages, goToPage, goToThePreviousPage, goToTheNextPage } = usePagination()
 
   const visiblePages = 5
 
