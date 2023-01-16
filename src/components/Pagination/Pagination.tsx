@@ -15,56 +15,48 @@ interface GetPagesParams {
   visiblePages: number
 }
 
-interface GetAfterPagesParams {
+interface GetNextPagesParams {
   pages: number[]
   currentPage: number
   visiblePages: number
 }
 
-interface GetBeforePagesParams {
+interface GetPreviousPagesParams {
   pages: number[]
   currentPage: number
   lastPage: number
   visiblePages: number
 }
 
-const getAfterPages = ({ pages, currentPage, visiblePages }: GetAfterPagesParams) => {
-  const halfOfVisiblePages = Math.floor(visiblePages / 2)
+const getNextPages = ({ pages, currentPage, visiblePages }: GetNextPagesParams) => {
+  const pagesOnEachSide = Math.floor(visiblePages / 2)
 
-  if (currentPage <= halfOfVisiblePages) {
-    const afterPages = pages.slice(currentPage, visiblePages)
-    return afterPages
+  if (currentPage <= pagesOnEachSide) {
+    const nextPages = pages.slice(currentPage, visiblePages)
+    return nextPages
   }
 
-  const afterPages = pages.slice(currentPage, currentPage + halfOfVisiblePages)
-  return afterPages
+  const nextPages = pages.slice(currentPage, currentPage + pagesOnEachSide)
+  return nextPages
 }
 
-const getBeforePages = ({ pages, currentPage, lastPage, visiblePages }: GetBeforePagesParams) => {
-  const halfOfVisiblePages = Math.floor(visiblePages / 2)
+const getPreviousPages = ({ pages, currentPage, lastPage, visiblePages }: GetPreviousPagesParams) => {
+  const pagesOnEachSide = Math.floor(visiblePages / 2)
 
-  if (currentPage === lastPage) {
-    const beforePages = pages.slice(lastPage - visiblePages < 0 ? 0 : lastPage - visiblePages, currentPage - 1)
-    return beforePages
+  if (currentPage <= pagesOnEachSide) {
+    const previousPages = pages.slice(0, currentPage - 1)
+    return previousPages
   }
 
-  if (currentPage <= halfOfVisiblePages) {
-    const beforePages = pages.slice(0, currentPage - 1)
-    return beforePages
+  if (currentPage + pagesOnEachSide >= lastPage) {
+    const start = lastPage - visiblePages <= 0 ? 0 : lastPage - visiblePages
+    const previousPages = pages.slice(start, currentPage - 1)
+
+    return previousPages
   }
 
-  if (currentPage + halfOfVisiblePages - 1 === lastPage) {
-    const beforePages = pages.slice(currentPage + halfOfVisiblePages - visiblePages - 1, currentPage - 1)
-    return beforePages
-  }
-
-  if (currentPage + halfOfVisiblePages > lastPage) {
-    const beforePages = pages.slice(visiblePages - (currentPage + 1), currentPage - 1)
-    return beforePages
-  }
-
-  const beforePages = pages.slice(currentPage - halfOfVisiblePages - 1, currentPage - 1)
-  return beforePages
+  const previousPages = pages.slice(currentPage - pagesOnEachSide - 1, currentPage - 1)
+  return previousPages
 }
 
 const getPages = ({ currentPage, visiblePages, lastPage }: GetPagesParams) => {
@@ -74,10 +66,10 @@ const getPages = ({ currentPage, visiblePages, lastPage }: GetPagesParams) => {
     pages.push(c)
   }
 
-  const afterPages = getAfterPages({ pages, currentPage, visiblePages })
-  const beforePages = getBeforePages({ pages, currentPage, lastPage, visiblePages })
+  const previousPages = getPreviousPages({ pages, currentPage, lastPage, visiblePages })
+  const nextPages = getNextPages({ pages, currentPage, visiblePages })
 
-  return { pages, afterPages, beforePages }
+  return { pages, previousPages, nextPages }
 }
 
 export const Pagination = () => {
@@ -85,12 +77,10 @@ export const Pagination = () => {
 
   const visiblePages = 5
 
-  const { beforePages, afterPages } = getPages({ currentPage, lastPage, visiblePages })
+  const { previousPages, nextPages } = getPages({ currentPage, lastPage, visiblePages })
 
-  console.log(beforePages, currentPage, afterPages)
-
-  const shouldShowFirstPageButton = !!beforePages.length && beforePages.at(0) !== 1
-  const shouldShowLastPageButton = !!afterPages.length && afterPages.at(-1) !== lastPage
+  const shouldShowFirstPageButton = !!previousPages.length && previousPages.at(0) !== 1
+  const shouldShowLastPageButton = !!nextPages.length && nextPages.at(-1) !== lastPage
 
   const prevPageButtonIsDisabled = currentPage === 1
   const nextPageButtonIsDisabled = currentPage === lastPage
@@ -107,7 +97,7 @@ export const Pagination = () => {
           </>
         )}
 
-        {beforePages.map((page) => (
+        {previousPages.map((page) => (
           <PageButton key={page} onClick={() => goToPage(page)}>
             {page}
           </PageButton>
@@ -115,7 +105,7 @@ export const Pagination = () => {
 
         <PageButton isHighlighted>{currentPage}</PageButton>
 
-        {afterPages.map((page) => (
+        {nextPages.map((page) => (
           <PageButton key={page} onClick={() => goToPage(page)}>
             {page}
           </PageButton>
