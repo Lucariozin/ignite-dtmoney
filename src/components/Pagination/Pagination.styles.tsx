@@ -19,6 +19,7 @@ const BaseControlButton = styled.button`
 
   &:disabled {
     color: ${({ theme }) => theme.palette.gray[500]};
+    cursor: not-allowed;
   }
 
   &:not(:disabled):hover {
