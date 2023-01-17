@@ -119,6 +119,38 @@
       "category": "Presente",
       "createdAt": "2023-01-17T15:31:02.704Z",
       "id": 15
+    },
+    {
+      "type": "outcome",
+      "description": "Novo teste",
+      "value": 3,
+      "category": "Teste",
+      "createdAt": "2023-01-17T18:37:56.935Z",
+      "id": 16
+    },
+    {
+      "type": "outcome",
+      "description": "Novo Teste 2",
+      "value": 2,
+      "category": "Teste",
+      "createdAt": "2023-01-17T18:45:11.292Z",
+      "id": 17
+    },
+    {
+      "type": "outcome",
+      "description": "Novo Teste 3",
+      "value": 3,
+      "category": "Teste",
+      "createdAt": "2023-01-17T18:46:10.239Z",
+      "id": 18
+    },
+    {
+      "type": "outcome",
+      "description": "Novo Teste 4",
+      "value": 4,
+      "category": "Teste",
+      "createdAt": "2023-01-17T18:46:32.255Z",
+      "id": 19
     }
   ]
 }
