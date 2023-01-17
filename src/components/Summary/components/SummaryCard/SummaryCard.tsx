@@ -3,14 +3,17 @@ import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from 'phosphor-react'
 
 import { formatMoney } from '@utils/formatMoney'
 
+import { Skeleton } from '@components/Skeleton'
+
 import { Container, TypeHeader, TypeText, Value } from './SummaryCard.styles'
 
 interface SummaryCardProps {
   type: 'income' | 'outcome' | 'total'
   value: number
+  isLoading: boolean
 }
 
-export const SummaryCard = ({ type = 'income', value = 0 }: SummaryCardProps) => {
+export const SummaryCard = ({ type = 'income', value = 0, isLoading = false }: SummaryCardProps) => {
   const { palette } = useTheme()
 
   const dataOfTypes = {
@@ -40,7 +43,7 @@ export const SummaryCard = ({ type = 'income', value = 0 }: SummaryCardProps) =>
         {typeData.icon}
       </TypeHeader>
 
-      <Value>{formattedValue}</Value>
+      {isLoading ? <Skeleton width="100%" height="2.375rem" /> : <Value>{formattedValue}</Value>}
     </Container>
   )
 }

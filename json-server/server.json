@@ -111,6 +111,14 @@
       "category": "Teste",
       "createdAt": "2023-01-14T19:12:23.717Z",
       "id": 14
+    },
+    {
+      "type": "outcome",
+      "description": "Relógio",
+      "value": 200,
+      "category": "Presente",
+      "createdAt": "2023-01-17T15:31:02.704Z",
+      "id": 15
     }
   ]
 }
