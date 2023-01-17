@@ -19,19 +19,8 @@ export const NewTransactionContainer = styled.div`
   justify-content: space-between;
 `
 
-export const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+export const Logo = styled.img`
   user-select: none;
-`
-
-export const LogoImg = styled.img``
-
-export const LogoText = styled.span`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.palette.gray[100]};
 `
 
 export const NewTransactionButton = styled.button`

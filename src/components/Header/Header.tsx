@@ -10,8 +10,6 @@ import {
   Wrapper,
   NewTransactionContainer,
   Logo,
-  LogoImg,
-  LogoText,
   NewTransactionButton,
   SummaryContainer,
 } from './Header.styles'
@@ -26,10 +24,7 @@ export const Header = () => {
     <Container>
       <Wrapper>
         <NewTransactionContainer>
-          <Logo>
-            <LogoImg src="/img/ignite-dtmoney-logo.svg" alt="" />
-            <LogoText>DT Money</LogoText>
-          </Logo>
+          <Logo src="/img/ignite-dtmoney-logo.svg" alt="" width={173} height={50} />
 
           <Dialog.Root open={newTransactionModalIsOpen}>
             <Dialog.Trigger asChild>
