@@ -11,6 +11,7 @@ export const Container = styled.div`
 const BaseControlButton = styled.button`
   font-size: 0;
   border: 0;
+  border-radius: 6px;
   background-color: transparent;
   color: ${({ theme }) => theme.palette.green[500]};
 
@@ -24,6 +25,10 @@ const BaseControlButton = styled.button`
 
   &:not(:disabled):hover {
     color: ${({ theme }) => theme.palette.green[400]};
+  }
+
+  &:focus-visible {
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
   }
 `
 
@@ -61,6 +66,11 @@ export const PageButton = styled.button<PageButtonProps>`
   transition: filter 0.2s;
   cursor: pointer;
   user-select: none;
+
+  &:focus-visible {
+    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
+    outline-offset: 3px;
+  }
 
   ${({ theme, isHighlighted }) => {
     if (isHighlighted) {
