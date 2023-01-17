@@ -46,6 +46,7 @@ export interface TransactionsContextState {
   updateTransactions: (params: UpdateTransactionsParams) => Promise<{ paginationData: PaginationData | null }>
   updateSummary: () => Promise<void>
   createTransaction: (params: CreateTransactionParams) => Promise<void>
+  setLoading: (value: boolean) => void
 }
 
 export interface TransactionsProviderProps {

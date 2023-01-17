@@ -1,4 +1,5 @@
 import { usePagination } from '@contexts/Pagination'
+import { useTransactions } from '@contexts/Transactions'
 
 import {
   Container,
@@ -11,10 +12,35 @@ import {
 
 export const Pagination = () => {
   const { currentPage, lastPage, getPages, goToPage, goToThePreviousPage, goToTheNextPage } = usePagination()
+  const { setLoading } = useTransactions()
 
   const visiblePages = 5
 
   const { previousPages, nextPages } = getPages({ currentPage, lastPage, visiblePages })
+
+  const handlePageButtonClick = async (page: number) => {
+    setLoading(true)
+
+    await goToPage(page)
+
+    setLoading(false)
+  }
+
+  const handleGoToThePreviousPage = async () => {
+    setLoading(true)
+
+    await goToThePreviousPage()
+
+    setLoading(false)
+  }
+
+  const handleGoToTheNextPage = async () => {
+    setLoading(true)
+
+    await goToTheNextPage()
+
+    setLoading(false)
+  }
 
   const shouldShowFirstPageButton = !!previousPages.length && previousPages.at(0) !== 1
   const shouldShowLastPageButton = !!nextPages.length && nextPages.at(-1) !== lastPage
@@ -24,18 +50,18 @@ export const Pagination = () => {
 
   return (
     <Container>
-      <PrevPageButton disabled={prevPageButtonIsDisabled} onClick={goToThePreviousPage} />
+      <PrevPageButton disabled={prevPageButtonIsDisabled} onClick={handleGoToThePreviousPage} />
 
       <PageButtonsContainer>
         {shouldShowFirstPageButton && (
           <>
-            <PageButton onClick={() => goToPage(1)}>1</PageButton>
+            <PageButton onClick={() => handlePageButtonClick(1)}>1</PageButton>
             <Separator>...</Separator>
           </>
         )}
 
         {previousPages.map((page) => (
-          <PageButton key={page} onClick={() => goToPage(page)}>
+          <PageButton key={page} onClick={() => handlePageButtonClick(page)}>
             {page}
           </PageButton>
         ))}
@@ -43,7 +69,7 @@ export const Pagination = () => {
         <PageButton isHighlighted>{currentPage}</PageButton>
 
         {nextPages.map((page) => (
-          <PageButton key={page} onClick={() => goToPage(page)}>
+          <PageButton key={page} onClick={() => handlePageButtonClick(page)}>
             {page}
           </PageButton>
         ))}
@@ -51,12 +77,12 @@ export const Pagination = () => {
         {shouldShowLastPageButton && (
           <>
             <Separator>...</Separator>
-            <PageButton onClick={() => goToPage(lastPage)}>{lastPage}</PageButton>
+            <PageButton onClick={() => handlePageButtonClick(lastPage)}>{lastPage}</PageButton>
           </>
         )}
       </PageButtonsContainer>
 
-      <NextPageButton disabled={nextPageButtonIsDisabled} onClick={goToTheNextPage} />
+      <NextPageButton disabled={nextPageButtonIsDisabled} onClick={handleGoToTheNextPage} />
     </Container>
   )
 }

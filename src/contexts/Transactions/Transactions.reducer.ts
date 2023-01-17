@@ -3,9 +3,7 @@ import { ActionsObjectType, TransactionActions } from './Transactions.actions'
 
 const actionsObject: ActionsObjectType = {
   SET_IS_LOADING: ({ state, payload }) => {
-    if (!payload?.isLoading) return state
-
-    const { isLoading } = payload
+    const isLoading = !!payload?.isLoading
 
     return { ...state, isLoading }
   },

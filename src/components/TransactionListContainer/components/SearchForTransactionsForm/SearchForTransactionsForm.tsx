@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import * as zod from 'zod'
@@ -18,7 +18,7 @@ const zodValidationSchema = zod.object({
 type SearchForTransactionsInputs = zod.infer<typeof zodValidationSchema>
 
 export const SearchForTransactionsForm = () => {
-  const { filterTransactions } = useTransactions()
+  const { filterTransactions, isLoading, setLoading, updateSummary } = useTransactions()
   const { currentPage, goToPage } = usePagination()
 
   const { register, handleSubmit, watch, formState } = useForm<SearchForTransactionsInputs>({
@@ -28,17 +28,27 @@ export const SearchForTransactionsForm = () => {
 
   const query = watch('query')
 
-  const onSearchForTransactionsFormSubmit = (data: SearchForTransactionsInputs) => {
+  const onSearchForTransactionsFormSubmit = async (data: SearchForTransactionsInputs) => {
     const { query } = data
 
-    filterTransactions({ query })
+    setLoading(true)
+
+    await filterTransactions({ query })
+
+    setLoading(false)
   }
+
+  const goToTheCurrentPage = useCallback(async () => {
+    await Promise.all([goToPage(currentPage), updateSummary()])
+  }, [goToPage, currentPage, updateSummary])
 
   useEffect(() => {
     if (query) return
 
-    goToPage(currentPage)
-  }, [query, currentPage, goToPage])
+    goToTheCurrentPage()
+  }, [query, goToTheCurrentPage])
+
+  const searchForTransactionsButtonIsDisabled = isLoading || !query
 
   return (
     <Container onSubmit={handleSubmit(onSearchForTransactionsFormSubmit)}>
@@ -49,7 +59,7 @@ export const SearchForTransactionsForm = () => {
         {...register('query')}
       />
 
-      <SearchForTransactionsButton type="submit">
+      <SearchForTransactionsButton type="submit" disabled={searchForTransactionsButtonIsDisabled}>
         <MagnifyingGlass size={20} weight="bold" /> Buscar
       </SearchForTransactionsButton>
     </Container>

@@ -56,10 +56,15 @@ export const SearchForTransactionsButton = styled.button`
 
   background-color: transparent;
 
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, filter 0.2s;
   cursor: pointer;
 
-  &:hover {
+  &:disabled {
+    cursor: not-allowed;
+    filter: brightness(0.8);
+  }
+
+  &:not(:disabled):hover {
     color: ${({ theme }) => theme.palette.white};
     background-color: ${({ theme }) => theme.palette.green[500]};
     border-color: ${({ theme }) => theme.palette.green[500]};

@@ -9,11 +9,6 @@ export const TransactionListSkeleton = () => {
       <Skeleton width="100%" height="4.125rem" />
       <Skeleton width="100%" height="4.125rem" />
       <Skeleton width="100%" height="4.125rem" />
-      <Skeleton width="100%" height="4.125rem" />
-      <Skeleton width="100%" height="4.125rem" />
-      <Skeleton width="100%" height="4.125rem" />
-      <Skeleton width="100%" height="4.125rem" />
-      <Skeleton width="100%" height="4.125rem" />
     </Container>
   )
 }

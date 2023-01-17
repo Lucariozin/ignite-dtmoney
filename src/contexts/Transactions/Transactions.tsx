@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useContext, useCallback } from 'react'
+import { createContext, useReducer, useContext, useCallback, useEffect } from 'react'
 
 import { createNewTransaction, fetchTransactions, fetchTransactionsSummary } from '@services/api'
 
@@ -23,6 +23,7 @@ const initialState: TransactionsContextState = {
   updateTransactions: async () => ({ paginationData: null }),
   filterTransactions: async () => {},
   updateSummary: async () => {},
+  setLoading: () => {},
 }
 
 const TransactionsContext = createContext<TransactionsContextState>(initialState)
@@ -50,7 +51,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     dispatch({ type: 'SET_SUMMARY', payload: { summary: data } })
   }, [])
 
-  const filterTransactions = async ({ query }: { query: string }) => {
+  const filterTransactions = useCallback(async ({ query }: { query: string }) => {
     const [transactionsResponse, summaryResponse] = await Promise.all([
       fetchTransactions({ query }),
       fetchTransactionsSummary({ query }),
@@ -63,7 +64,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
 
     dispatch({ type: 'SET_TRANSACTIONS', payload: { transactions } })
     dispatch({ type: 'SET_SUMMARY', payload: { summary } })
-  }
+  }, [])
 
   const createTransaction = useCallback(async ({ type, description, value, category }: CreateTransactionParams) => {
     const { data } = await createNewTransaction({ type, description, value, category })
@@ -71,6 +72,10 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     if (!data) return
 
     dispatch({ type: 'CREATE_TRANSACTION', payload: { transaction: data } })
+  }, [])
+
+  const setLoading = useCallback((value: boolean) => {
+    dispatch({ type: 'SET_IS_LOADING', payload: { isLoading: value } })
   }, [])
 
   useEffect(() => {
@@ -83,6 +88,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
     updateSummary,
     filterTransactions,
     createTransaction,
+    setLoading,
   }
 
   return <TransactionsContext.Provider value={value}>{children}</TransactionsContext.Provider>

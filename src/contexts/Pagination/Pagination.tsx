@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useReducer } from 'react'
+import { createContext, useCallback, useContext, useReducer } from 'react'
 
 import { reducer } from './Pagination.reducer'
 
@@ -26,17 +26,17 @@ const PaginationContext = createContext<PaginationContextState>(initialState)
 export const PaginationProvider = ({ children }: PaginationProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const { updateTransactions, updateSummary } = useTransactions()
+  const { updateTransactions } = useTransactions()
 
   const goToPage = useCallback(
     async (page: number = 1) => {
-      const [{ paginationData }] = await Promise.all([updateTransactions({ page, limit: 10 }), updateSummary()])
+      const { paginationData } = await updateTransactions({ page, limit: 10 })
 
       if (!paginationData) return
 
       dispatch({ type: 'SET_STATE', payload: { state: { ...paginationData } } })
     },
-    [updateTransactions, updateSummary],
+    [updateTransactions],
   )
 
   const goToThePreviousPage = useCallback(async () => {
@@ -90,10 +90,6 @@ export const PaginationProvider = ({ children }: PaginationProviderProps) => {
 
     return { pages, previousPages, nextPages }
   }, [])
-
-  useEffect(() => {
-    goToPage(1)
-  }, [goToPage])
 
   const value: PaginationContextState = {
     ...state,
