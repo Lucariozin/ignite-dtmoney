@@ -12,37 +12,6 @@ export const InputsContainer = styled.div`
   gap: 1rem;
 `
 
-interface InputProps {
-  isError: boolean
-}
-
-export const Input = styled.input<InputProps>`
-  width: 100%;
-  padding: 1rem;
-  font-size: 1rem;
-  color: ${({ theme }) => theme.palette.gray[200]};
-
-  border: 0;
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.palette.gray[700]};
-
-  ${({ theme, isError }) => {
-    if (!isError) return css``
-
-    return css`
-      outline: 1px solid ${theme.palette.red[300]};
-    `
-  }}
-
-  &:focus-visible {
-    outline: 1px solid ${({ theme }) => theme.palette.green[400]};
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.palette.gray[400]};
-  }
-`
-
 export const TypeButtonsContainer = styled(ToggleGroup.Root)`
   display: flex;
   gap: 1rem;
@@ -141,11 +110,16 @@ export const RegisterButton = styled.button`
   border: 0;
   border-radius: 6px;
 
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, filter 0.2s;
   cursor: pointer;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${({ theme }) => theme.palette.green[400]};
+  }
+
+  &:disabled {
+    filter: brightness(0.8);
+    cursor: not-allowed;
   }
 
   &:focus-visible {

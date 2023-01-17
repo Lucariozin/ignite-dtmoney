@@ -7,9 +7,10 @@ import { zodValidationSchema } from './zodValidationSchema'
 
 import { useTransactions } from '@contexts/Transactions'
 
+import { Input } from '@components/Input'
+
 import {
   Container,
-  Input,
   InputsContainer,
   RegisterButton,
   TypeButton,
@@ -25,7 +26,7 @@ interface NewTransactionFormProps {
 }
 
 export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
-  const { createTransaction } = useTransactions()
+  const { createTransaction, isLoading, setLoading } = useTransactions()
 
   const { register, control, watch, setValue, handleSubmit, formState } = useForm<NewTransactionFormInputs>({
     defaultValues: { type: 'income' },
@@ -48,7 +49,11 @@ export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
       value: data.price,
     }
 
+    setLoading(true)
+
     await createTransaction(newTransaction)
+
+    setLoading(false)
 
     closeModal()
   }
@@ -91,7 +96,9 @@ export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
         )}
       />
 
-      <RegisterButton type="submit">Cadastrar</RegisterButton>
+      <RegisterButton type="submit" disabled={isLoading}>
+        Cadastrar
+      </RegisterButton>
     </Container>
   )
 }
