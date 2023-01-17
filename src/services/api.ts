@@ -36,7 +36,7 @@ export const api = axios.create({
 })
 
 export const fetchTransactions = async ({ query = '', page, limit }: FetchTransactionsParams) => {
-  const url = `/transactions?q=${query}&_page=${page ?? ''}&_limit=${limit ?? ''}`
+  const url = `/transactions?q=${query}&_page=${page ?? ''}&_limit=${limit ?? ''}&_sort=createdAt&_order=desc`
 
   let response: ResponseObj<FetchTransactionsResponseData> = {}
 

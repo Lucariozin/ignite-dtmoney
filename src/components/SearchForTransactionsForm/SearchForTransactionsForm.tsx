@@ -9,7 +9,8 @@ import { MagnifyingGlass } from 'phosphor-react'
 import { useTransactions } from '@contexts/Transactions'
 import { usePagination } from '@contexts/Pagination'
 
-import { Container, SearchForTransactionsButton, SearchForTransactionsInput } from './SearchForTransactionsForm.styles'
+import { Container, SearchForTransactionsButton } from './SearchForTransactionsForm.styles'
+import { Input } from '@components/Input'
 
 const zodValidationSchema = zod.object({
   query: zod.string().max(100, 'Ops, sua busca ultrapassou o limite permitido'),
@@ -52,7 +53,7 @@ export const SearchForTransactionsForm = () => {
 
   return (
     <Container onSubmit={handleSubmit(onSearchForTransactionsFormSubmit)}>
-      <SearchForTransactionsInput
+      <Input
         type="text"
         placeholder="Busque por transações"
         isError={!!formState.errors.query}

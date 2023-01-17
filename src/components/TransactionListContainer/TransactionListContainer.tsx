@@ -4,8 +4,8 @@ import { useTransactions } from '@contexts/Transactions'
 import { usePagination } from '@contexts/Pagination'
 
 import { Pagination, PaginationSkeleton } from '@components/Pagination'
+import { SearchForTransactionsForm } from '@components/SearchForTransactionsForm'
 
-import { SearchForTransactionsForm } from './components/SearchForTransactionsForm'
 import { TransactionList, TransactionListSkeleton } from './components/TransactionList'
 
 import { Container, PaginationContainer } from './TransactionListContainer.styles'
