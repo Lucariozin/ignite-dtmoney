@@ -4,8 +4,8 @@
       "id": 1,
       "type": "income",
       "description": "Desenvolvimento de site",
-      "value": 12000,
-      "category": "venda",
+      "value": 14000,
+      "category": "Venda",
       "createdAt": "10-01-2023 14:00:00"
     },
     {
@@ -26,17 +26,17 @@
     },
     {
       "type": "outcome",
-      "description": "Teste",
-      "value": 59,
-      "category": "Teste",
+      "description": "Fones de ouvido",
+      "value": 200,
+      "category": "Tecnologia",
       "createdAt": "2023-01-12T22:35:40.282Z",
       "id": 4
     },
     {
-      "type": "income",
-      "description": "Teste 2",
-      "value": 1000,
-      "category": "Teste",
+      "type": "outcome",
+      "description": "Lucariozin action figure",
+      "value": 3000,
+      "category": "Action figure",
       "createdAt": "2023-01-13T14:21:23.051Z",
       "id": 5
     },
@@ -175,6 +175,30 @@
       "category": "Alimentação",
       "createdAt": "2023-01-18T13:45:44.045Z",
       "id": 22
+    },
+    {
+      "type": "income",
+      "description": "teste 1",
+      "value": 12,
+      "category": "Teste",
+      "createdAt": "2023-01-18T21:30:57.598Z",
+      "id": 23
+    },
+    {
+      "type": "outcome",
+      "description": "teste 2",
+      "value": 3,
+      "category": "Teste",
+      "createdAt": "2023-01-18T21:31:17.317Z",
+      "id": 24
+    },
+    {
+      "type": "income",
+      "description": "teste 3",
+      "value": 1,
+      "category": "Teste",
+      "createdAt": "2023-01-18T21:31:31.084Z",
+      "id": 25
     }
   ]
 }
