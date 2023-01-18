@@ -21,7 +21,7 @@ export const Pagination = () => {
   const handlePageButtonClick = async (page: number) => {
     setLoading(true)
 
-    await goToPage(page)
+    await goToPage({ page, scroll: true })
 
     setLoading(false)
   }

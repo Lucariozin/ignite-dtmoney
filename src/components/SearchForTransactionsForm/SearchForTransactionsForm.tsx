@@ -40,7 +40,7 @@ export const SearchForTransactionsForm = () => {
   }
 
   const goToTheCurrentPage = useCallback(async () => {
-    await Promise.all([goToPage(currentPage), updateSummary()])
+    await Promise.all([goToPage({ page: currentPage }), updateSummary()])
   }, [goToPage, currentPage, updateSummary])
 
   useEffect(() => {

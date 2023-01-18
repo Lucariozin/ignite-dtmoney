@@ -54,7 +54,7 @@ export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
     setLoading(true)
 
     await createTransaction(newTransaction)
-    await goToPage(1)
+    await goToPage({ page: 1 })
 
     setLoading(false)
 

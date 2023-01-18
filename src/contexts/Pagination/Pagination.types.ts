@@ -29,10 +29,15 @@ export interface GetPreviousPagesParams {
   visiblePages: number
 }
 
+export interface GoToPageParams {
+  page: number
+  scroll?: boolean
+}
+
 export interface PaginationContextState {
   currentPage: number
   lastPage: number
-  goToPage: (page: number) => Promise<void>
+  goToPage: (params: GoToPageParams) => Promise<void>
   goToThePreviousPage: () => Promise<void>
   goToTheNextPage: () => Promise<void>
   getPages: (params: GetPagesParams) => GetPagesReturn

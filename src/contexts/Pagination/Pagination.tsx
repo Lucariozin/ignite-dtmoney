@@ -8,6 +8,7 @@ import {
   GetNextPagesParams,
   GetPagesParams,
   GetPreviousPagesParams,
+  GoToPageParams,
   PaginationContextState,
   PaginationProviderProps,
 } from './Pagination.types'
@@ -29,22 +30,26 @@ export const PaginationProvider = ({ children }: PaginationProviderProps) => {
   const { updateTransactions } = useTransactions()
 
   const goToPage = useCallback(
-    async (page: number = 1) => {
+    async ({ page = 1, scroll = false }: GoToPageParams) => {
       const { paginationData } = await updateTransactions({ page, limit: 10 })
 
       if (!paginationData) return
 
       dispatch({ type: 'SET_STATE', payload: { state: { ...paginationData } } })
+
+      if (!scroll) return
+
+      window.scroll({ top: 0, behavior: 'smooth' })
     },
     [updateTransactions],
   )
 
   const goToThePreviousPage = useCallback(async () => {
-    await goToPage(state.currentPage - 1)
+    await goToPage({ page: state.currentPage - 1, scroll: true })
   }, [goToPage, state.currentPage])
 
   const goToTheNextPage = useCallback(async () => {
-    await goToPage(state.currentPage + 1)
+    await goToPage({ page: state.currentPage + 1, scroll: true })
   }, [goToPage, state.currentPage])
 
   const getNextPages = ({ pages, currentPage, visiblePages }: GetNextPagesParams) => {

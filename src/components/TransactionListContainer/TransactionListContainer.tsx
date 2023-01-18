@@ -17,7 +17,7 @@ export const TransactionListContainer = () => {
   const onFirstRender = useCallback(async () => {
     setLoading(true)
 
-    await goToPage(1)
+    await goToPage({ page: 1 })
 
     setLoading(false)
   }, [goToPage, setLoading])
