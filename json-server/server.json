@@ -151,6 +151,30 @@
       "category": "Teste",
       "createdAt": "2023-01-17T18:46:32.255Z",
       "id": 19
+    },
+    {
+      "type": "outcome",
+      "description": "Compras do mês",
+      "value": 1500,
+      "category": "Alimentação",
+      "createdAt": "2023-01-18T13:38:49.661Z",
+      "id": 20
+    },
+    {
+      "type": "outcome",
+      "description": "Celular",
+      "value": 1200,
+      "category": "Presente",
+      "createdAt": "2023-01-18T13:42:14.796Z",
+      "id": 21
+    },
+    {
+      "type": "outcome",
+      "description": "Almoço",
+      "value": 20,
+      "category": "Alimentação",
+      "createdAt": "2023-01-18T13:45:44.045Z",
+      "id": 22
     }
   ]
 }

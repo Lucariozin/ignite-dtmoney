@@ -67,11 +67,7 @@ export const TransactionsProvider = ({ children }: TransactionsProviderProps) =>
   }, [])
 
   const createTransaction = useCallback(async ({ type, description, value, category }: CreateTransactionParams) => {
-    const { data } = await createNewTransaction({ type, description, value, category })
-
-    if (!data) return
-
-    dispatch({ type: 'CREATE_TRANSACTION', payload: { transaction: data } })
+    await createNewTransaction({ type, description, value, category })
   }, [])
 
   const setLoading = useCallback((value: boolean) => {

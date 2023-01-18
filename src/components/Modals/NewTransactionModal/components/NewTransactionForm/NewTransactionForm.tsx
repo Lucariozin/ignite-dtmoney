@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { zodValidationSchema } from './zodValidationSchema'
 
 import { useTransactions } from '@contexts/Transactions'
+import { usePagination } from '@contexts/Pagination'
 
 import { Input } from '@components/Input'
 
@@ -27,6 +28,7 @@ interface NewTransactionFormProps {
 
 export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
   const { createTransaction, isLoading, setLoading } = useTransactions()
+  const { goToPage } = usePagination()
 
   const { register, control, watch, setValue, handleSubmit, formState } = useForm<NewTransactionFormInputs>({
     defaultValues: { type: 'income' },
@@ -52,6 +54,7 @@ export const NewTransactionForm = ({ closeModal }: NewTransactionFormProps) => {
     setLoading(true)
 
     await createTransaction(newTransaction)
+    await goToPage(1)
 
     setLoading(false)
 

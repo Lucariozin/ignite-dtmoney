@@ -8,9 +8,9 @@ import { Container } from './Transactions.styles'
 export const Transactions = () => {
   return (
     <Container>
-      <Header />
-
       <PaginationProvider>
+        <Header />
+
         <TransactionListContainer />
       </PaginationProvider>
     </Container>
