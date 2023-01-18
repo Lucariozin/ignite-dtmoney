@@ -11,6 +11,7 @@ export const Container = styled.div<ContainerProps>`
   gap: 0.875rem;
   width: 100%;
   max-width: 22rem;
+  min-width: 17.5rem;
   padding: 1.5rem 2rem 1.7rem;
   border-radius: 6px;
 
@@ -49,4 +50,8 @@ export const Value = styled.span`
   font-size: 2rem;
   font-weight: 700;
   color: ${({ theme }) => theme.palette.gray[100]};
+
+  ${({ theme }) => theme.breakpoints.down(950)} {
+    font-size: 1.5rem;
+  }
 `
