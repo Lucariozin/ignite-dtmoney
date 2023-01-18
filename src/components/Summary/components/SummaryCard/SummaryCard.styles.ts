@@ -14,6 +14,8 @@ export const Container = styled.div<ContainerProps>`
   padding: 1.5rem 2rem 1.7rem;
   border-radius: 6px;
 
+  transition: background-color 0.2s;
+
   ${({ theme, type, value }) => {
     const backgroundColors = {
       income: theme.palette.gray[500],
