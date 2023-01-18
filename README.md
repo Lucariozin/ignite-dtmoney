@@ -4,12 +4,14 @@
 
 - Projeto desenvolvido na trilha de ReactJS do Ignite da Rocketseat.
 
+## Versão desktop:
+
 <div>
   <img width="412" src="./public/readme-images/transactions.png" />
   <img width="412" src="./public/readme-images/new-transaction-modal.png" />
 </div>
 
-- Versão mobile:
+## Versão mobile:
 
 <div>
   <img width="412" src="./public/readme-images/transactions-mobile.png" />
