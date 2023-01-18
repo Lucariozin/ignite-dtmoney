@@ -5,4 +5,8 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 8px;
   margin-top: 1.5rem;
+
+  ${({ theme }) => theme.breakpoints.down(700)} {
+    gap: 12px;
+  }
 `

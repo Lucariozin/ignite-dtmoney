@@ -1,6 +1,8 @@
+import { CalendarBlank, TagSimple } from 'phosphor-react'
+
 import { formatMoney } from '@utils/formatMoney'
 
-import { Category, Container, CreationDate, Description, Value } from './TransactionItem.styles'
+import { Category, Container, CreationDate, Description, Value, Wrapper } from './TransactionItem.styles'
 
 export type TransactionType = 'income' | 'outcome'
 
@@ -39,13 +41,21 @@ export const TransactionItem = ({
 
   return (
     <Container>
-      <Description>{description}</Description>
+      <Wrapper>
+        <Description>{description}</Description>
 
-      <Value type={type}>{formattedValue}</Value>
+        <Value type={type}>{formattedValue}</Value>
 
-      <Category>{category}</Category>
+        <Category>
+          <TagSimple size={16} />
+          {category}
+        </Category>
+      </Wrapper>
 
-      <CreationDate>{formattedCreationDate}</CreationDate>
+      <CreationDate>
+        <CalendarBlank size={16} />
+        {formattedCreationDate}
+      </CreationDate>
     </Container>
   )
 }
