@@ -41,11 +41,28 @@ export const Content = styled(Dialog.Content)`
   &:focus-visible {
     outline: 1px solid ${({ theme }) => theme.palette.green[400]};
   }
+
+  ${({ theme }) => theme.breakpoints.down(500)} {
+    max-width: none;
+    padding: 2rem 1.5rem;
+    border-radius: 20px 20px 0 0;
+    bottom: 0;
+
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+  }
 `
 
 export const Title = styled(Dialog.Title)`
   font-size: 1.5rem;
   color: ${({ theme }) => theme.palette.gray[100]};
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    font-size: 1.25rem;
+  }
 `
 
 export const CloseButton = styled(Dialog.Close)`

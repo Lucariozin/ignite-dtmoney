@@ -10,12 +10,21 @@ export const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    gap: 12px;
+  }
 `
 
 export const TypeButtonsContainer = styled(ToggleGroup.Root)`
   display: flex;
   gap: 1rem;
   margin: 1.5rem 0 2.5rem 0;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    gap: 8px;
+    justify-content: space-between;
+  }
 `
 
 interface TypeButtonProps {
@@ -125,5 +134,9 @@ export const RegisterButton = styled.button`
   &:focus-visible {
     outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    height: 3.125rem;
   }
 `
