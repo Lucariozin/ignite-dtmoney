@@ -5,6 +5,10 @@ export const Container = styled.header`
   inset: 0;
   height: 13.25rem;
   background-color: ${({ theme }) => theme.palette.gray[700]};
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    height: 11.5rem;
+  }
 `
 
 export const Wrapper = styled.div`
@@ -17,10 +21,16 @@ export const Wrapper = styled.div`
 export const NewTransactionContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
 export const Logo = styled.img`
   user-select: none;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    width: 7.3125rem;
+    height: 1.5625rem;
+  }
 `
 
 export const NewTransactionButton = styled.button`
@@ -47,6 +57,12 @@ export const NewTransactionButton = styled.button`
   &:focus-visible {
     outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    font-size: 0.875rem;
+    max-width: 8.125rem;
+    height: 2.375rem;
   }
 `
 
