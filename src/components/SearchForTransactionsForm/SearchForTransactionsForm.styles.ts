@@ -1,41 +1,12 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const Container = styled.form`
   display: flex;
   gap: 1rem;
-`
 
-interface SearchForTransactionsInputProps {
-  isError: boolean
-}
-
-export const SearchForTransactionsInput = styled.input<SearchForTransactionsInputProps>`
-  width: 100%;
-  padding: 1rem;
-  font-size: 1rem;
-  color: ${({ theme }) => theme.palette.gray[200]};
-
-  border: 0;
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.palette.gray[700]};
-
-  &::placeholder {
-    color: ${({ theme }) => theme.palette.gray[400]};
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    gap: 8px;
   }
-
-  ${({ theme, isError }) => {
-    if (!isError) {
-      return css`
-        &:focus-visible {
-          outline: 1px solid ${({ theme }) => theme.palette.green[400]};
-        }
-      `
-    }
-
-    return css`
-      outline: 1px solid ${theme.palette.red[300]};
-    `
-  }}
 `
 
 export const SearchForTransactionsButton = styled.button`
@@ -47,8 +18,6 @@ export const SearchForTransactionsButton = styled.button`
   max-width: 9.25rem;
   height: 3.375rem;
 
-  font-size: 1rem;
-  font-weight: 700;
   color: ${({ theme }) => theme.palette.green[400]};
 
   border-radius: 6px;
@@ -77,5 +46,18 @@ export const SearchForTransactionsButton = styled.button`
 
     outline: 1px solid ${({ theme }) => theme.palette.green[400]};
     outline-offset: 3px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    max-width: 3.375rem;
+  }
+`
+
+export const SearchForTransactionsText = styled.span`
+  font-size: 1rem;
+  font-weight: 700;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    display: none;
   }
 `

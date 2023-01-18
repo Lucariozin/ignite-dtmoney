@@ -10,11 +10,8 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.palette.gray[200]};
   background-color: ${({ theme }) => theme.palette.gray[550]};
 
-  ${({ theme }) => theme.breakpoints.down(700)} {
+  ${({ theme }) => theme.breakpoints.down('sm')} {
     align-items: flex-end;
-  }
-
-  ${({ theme }) => theme.breakpoints.down(500)} {
     padding: 1.5rem 1.25rem;
   }
 `
@@ -24,7 +21,7 @@ export const Wrapper = styled.div`
   width: 100%;
   gap: 8px;
 
-  ${({ theme }) => theme.breakpoints.down(700)} {
+  ${({ theme }) => theme.breakpoints.down('sm')} {
     flex-direction: column;
     gap: 12px;
   }
@@ -68,7 +65,7 @@ export const Category = styled.span`
     display: none;
   }
 
-  ${({ theme }) => theme.breakpoints.down(700)} {
+  ${({ theme }) => theme.breakpoints.down('sm')} {
     color: ${({ theme }) => theme.palette.gray[400]};
     margin-top: 4px;
 
@@ -87,7 +84,7 @@ export const CreationDate = styled.span`
     display: none;
   }
 
-  ${({ theme }) => theme.breakpoints.down(700)} {
+  ${({ theme }) => theme.breakpoints.down('sm')} {
     color: ${({ theme }) => theme.palette.gray[400]};
 
     & > svg {

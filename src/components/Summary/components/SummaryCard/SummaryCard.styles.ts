@@ -12,6 +12,7 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   max-width: 22rem;
   min-width: 17.5rem;
+  min-height: 8.625rem;
   padding: 1.5rem 2rem 1.7rem;
   border-radius: 6px;
 

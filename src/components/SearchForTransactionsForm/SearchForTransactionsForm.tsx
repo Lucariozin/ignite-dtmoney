@@ -9,7 +9,7 @@ import { MagnifyingGlass } from 'phosphor-react'
 import { useTransactions } from '@contexts/Transactions'
 import { usePagination } from '@contexts/Pagination'
 
-import { Container, SearchForTransactionsButton } from './SearchForTransactionsForm.styles'
+import { Container, SearchForTransactionsButton, SearchForTransactionsText } from './SearchForTransactionsForm.styles'
 import { Input } from '@components/Input'
 
 const zodValidationSchema = zod.object({
@@ -61,7 +61,8 @@ export const SearchForTransactionsForm = () => {
       />
 
       <SearchForTransactionsButton type="submit" disabled={searchForTransactionsButtonIsDisabled}>
-        <MagnifyingGlass size={20} weight="bold" /> Buscar
+        <MagnifyingGlass size={20} weight="bold" />
+        <SearchForTransactionsText>Buscar</SearchForTransactionsText>
       </SearchForTransactionsButton>
     </Container>
   )
