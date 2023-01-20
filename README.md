@@ -1,15 +1,11 @@
 # Rockeseat - Ignite DTmoney
 
-<img src="./public/readme-images/transactions.png" />
-
 - Projeto desenvolvido na trilha de ReactJS do Ignite da Rocketseat.
 
 ## Versão desktop:
 
-<div>
-  <img width="412" src="./public/readme-images/transactions.png" />
-  <img width="412" src="./public/readme-images/new-transaction-modal.png" />
-</div>
+<img src="./public/readme-images/transactions.png" />
+<img src="./public/readme-images/new-transaction-modal.png" />
 
 ## Versão mobile:
 
