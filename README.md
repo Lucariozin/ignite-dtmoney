@@ -10,6 +10,6 @@
 ## Versão mobile:
 
 <div>
-  <img width="412" src="./public/readme-images/transactions-mobile.png" />
-  <img width="412" src="./public/readme-images/new-transaction-modal-mobile.png" />
+  <img width="412" height="730" src="./public/readme-images/transactions-mobile.png" />
+  <img width="412" height="730" src="./public/readme-images/new-transaction-modal-mobile.png" />
 </div>
